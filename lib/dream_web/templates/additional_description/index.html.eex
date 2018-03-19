@@ -1,0 +1,28 @@
+<h2>Listing Additional descriptions</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Display name</th>
+      <th>Text</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for additional_description <- @additional_descriptions do %>
+    <tr>
+      <td><%= additional_description.display_name %></td>
+      <td><%= additional_description.text %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: additional_description_path(@conn, :show, additional_description), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: additional_description_path(@conn, :edit, additional_description), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: additional_description_path(@conn, :delete, additional_description), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Additional description", to: additional_description_path(@conn, :new) %></span>

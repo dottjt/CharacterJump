@@ -1,0 +1,33 @@
+.Nav {
+  display: flex; 
+  align-items: center;
+  justify-content: space-between;
+  
+  height: 4rem;
+  padding-left: 2rem;
+  padding-right: 2rem; 
+
+  border: 1px solid black;
+}
+
+.Nav-left {
+  display: flex;
+  justify-content: space-around;
+  width: 200px;
+}
+
+.Nav-logo {
+  /* width: 100%; */
+}
+
+.Nav-right {
+  display: flex;
+}
+
+.Nav-avatar {
+  width: 30px;
+  height: 30px;
+
+  background: red;
+  border-radius: 50%;
+}

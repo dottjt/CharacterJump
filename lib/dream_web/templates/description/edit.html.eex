@@ -1,0 +1,5 @@
+<h2>Edit Description</h2>
+
+<%= render "form.html", Map.put(assigns, :action, description_path(@conn, :update, @description)) %>
+
+<span><%= link "Back", to: description_path(@conn, :index) %></span>

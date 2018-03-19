@@ -1,0 +1,28 @@
+<h2>Listing Trait categories</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Display name</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for trait_category <- @trait_categories do %>
+    <tr>
+      <td><%= trait_category.name %></td>
+      <td><%= trait_category.display_name %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: trait_category_path(@conn, :show, trait_category), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: trait_category_path(@conn, :edit, trait_category), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: trait_category_path(@conn, :delete, trait_category), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Trait category", to: trait_category_path(@conn, :new) %></span>

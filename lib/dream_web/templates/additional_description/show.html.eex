@@ -1,0 +1,18 @@
+<h2>Show Additional description</h2>
+
+<ul>
+
+  <li>
+    <strong>Display name:</strong>
+    <%= @additional_description.display_name %>
+  </li>
+
+  <li>
+    <strong>Text:</strong>
+    <%= @additional_description.text %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: additional_description_path(@conn, :edit, @additional_description) %></span>
+<span><%= link "Back", to: additional_description_path(@conn, :index) %></span>

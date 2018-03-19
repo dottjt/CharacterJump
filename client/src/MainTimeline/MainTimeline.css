@@ -1,0 +1,29 @@
+.MTL {
+  
+}
+
+.MTL-day {
+  width: 80%;
+}
+
+.MTL-date {
+}
+
+.MTL-characters {
+  
+}
+
+.MTL-character {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
+  height: 100px; 
+
+  border: 1px solid black;
+}
+
+.MTL-character-display_name {
+  
+}

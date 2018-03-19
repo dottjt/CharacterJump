@@ -1,0 +1,13 @@
+<h2>Show Description</h2>
+
+<ul>
+
+  <li>
+    <strong>Text:</strong>
+    <%= @description.text %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: description_path(@conn, :edit, @description) %></span>
+<span><%= link "Back", to: description_path(@conn, :index) %></span>

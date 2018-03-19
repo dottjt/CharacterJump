@@ -1,0 +1,92 @@
+.MNC {
+  
+}
+
+.MNC-fields {
+  width: 80%;
+}
+
+.MNC-field {
+  margin-bottom: 1rem;
+}
+
+.MNC-field-name, .MNC-field-description, .MNC-field-traits {
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.MNC-field-name-input {
+  /* height: 2rem;   */
+  padding: 0.5rem;
+
+  width: 100%;
+  
+  font-size: 1.6rem;
+}
+
+.MNC-field-description-input {
+  height: 6rem;
+  width: 100%;
+
+  padding: 0.5rem;
+  
+  font-size: 1.1rem;
+}
+
+.MNC-save-container {
+  width: 80%;
+
+  margin-top: 1.5rem;
+}
+
+
+/* MainNewCharacterTraitPicker */
+
+.MNCTP {
+  width: 80%;
+}
+
+.MNCTP-search {
+  margin-bottom: 1rem;
+}
+
+.MNCTP-categories {
+  display: flex;
+
+  margin-bottom: 1rem;
+}
+
+.MNCTP-category {
+  border: 1px solid black; 
+  padding: 1rem;
+
+  cursor: pointer;
+}
+
+.MNCTP-category-selected {
+  background: black;
+  color: white;
+}
+
+.MNCTP-traits {
+  display: flex;
+  flex-wrap: wrap;
+
+  height: 16rem;
+  overflow-y: scroll;
+
+  border: 1px solid black;
+}
+
+.MNCTP-trait {
+  padding: 5px;
+}
+
+.MNCTP-selected-traits {
+  min-height: 4rem;  
+}
+
+.MNCTP-selected-trait {
+  display: flex;
+}
+

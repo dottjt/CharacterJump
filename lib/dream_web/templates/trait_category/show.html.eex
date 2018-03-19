@@ -1,0 +1,18 @@
+<h2>Show Trait category</h2>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @trait_category.name %>
+  </li>
+
+  <li>
+    <strong>Display name:</strong>
+    <%= @trait_category.display_name %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: trait_category_path(@conn, :edit, @trait_category) %></span>
+<span><%= link "Back", to: trait_category_path(@conn, :index) %></span>
