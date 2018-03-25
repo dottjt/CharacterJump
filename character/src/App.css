@@ -1,0 +1,116 @@
+/* COMMON */
+
+* {
+  box-sizing: border-box!important;
+}
+
+
+/* APP GRID */
+
+.App {
+  display: grid;
+  grid-template-rows: 70px 30px 30px auto 100px;
+  grid-template-columns: 0.5fr minmax(200px, 3fr) 9fr 0.5fr;
+  grid-gap: 40px;
+
+  width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  grid-column: 1 / 5;
+}
+
+nav {
+  display: none;  
+}
+
+main {
+  grid-column: 2 / 4;
+}
+
+
+.App__top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 10rem;
+  margin-bottom: 4rem;
+
+  border: 1px solid black;
+}
+
+.App__button {
+  font-size: 1.2rem;
+
+  border: 1px solid black;
+  border-radius: 3px;
+
+  text-decoration: none;
+
+  padding: 1.2rem;
+}
+
+.App__title {
+  font-size: 1.8rem;
+  margin-bottom: 2.5rem;
+}
+
+.App__title-secondary {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+
+.App__item {
+  width: 100%;
+  min-height: 9rem;
+  border: 1px solid black;
+
+  padding: 1rem;
+  padding-bottom: 1.5rem;
+
+  margin-bottom: 2rem;
+}
+
+.App__item-frequency {
+  margin-bottom: 1rem;
+}
+
+.App__item__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.App__item__top__left {
+  display: flex;
+  align-items: flex-end;
+}
+
+
+
+
+
+@media screen and (min-width: 767px) {
+
+  .App {
+    grid-template-columns: minmax(200px, 3fr) 0.2fr 9fr 0.6fr;
+  }
+
+  nav {
+    display: block;
+    border: 1px solid black;
+
+    grid-row: 4 / span 4;  
+  }
+
+  main {
+    grid-column: 3;
+    grid-row: 3;
+  }  
+}
+
+

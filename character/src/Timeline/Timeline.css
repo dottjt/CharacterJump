@@ -1,0 +1,30 @@
+.Time__{
+  
+}
+
+.Time__day {
+  
+}
+
+.Time__day {
+  
+}
+
+.Time__characters {
+  
+}
+
+.Time__character {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100px;
+  height: 100px; 
+
+  border: 1px solid black;
+}
+
+.Time__character__display_name {
+  
+}
