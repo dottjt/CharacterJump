@@ -1,28 +1,27 @@
-defmodule Dream.Character.Journal do
+defmodule Dream.Character.Narrative do
   use Ecto.Schema
   import Ecto.Changeset
 
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
-  schema "journals" do
+  schema "narratives" do
     field :text, :string
-    # field :character_id, :binary_id
-
-    belongs_to :character, Dream.Core.Character
+    # field :selected, :boolean, default: false
+    field :character_id, :binary_id
 
     timestamps()
   end
 
   @doc false
-  def changeset(journal, attrs) do
-    journal
+  def changeset(narrative, attrs) do
+    narrative
     |> cast(attrs, [:text])
     |> validate_required([:text])
   end
 
-  def new_changeset(journal, attrs) do
-    journal
+  def new_changeset(narrative, attrs) do
+    narrative
     |> cast(attrs, [:text, :character_id])
     |> validate_required([:text, :character_id])
   end

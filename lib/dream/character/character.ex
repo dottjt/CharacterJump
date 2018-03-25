@@ -147,7 +147,7 @@ defmodule Dream.Character do
   """
   def create_journal(attrs \\ %{}) do
     %Journal{}
-    |> Journal.changeset(attrs)
+    |> Journal.new_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -243,7 +243,7 @@ defmodule Dream.Character do
   """
   def create_additional_description(attrs \\ %{}) do
     %AdditionalDescription{}
-    |> AdditionalDescription.changeset(attrs)
+    |> AdditionalDescription.new_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -339,7 +339,7 @@ defmodule Dream.Character do
   """
   def create_trait(attrs \\ %{}) do
     %Trait{}
-    |> Trait.changeset(attrs)
+    |> Trait.new_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -388,5 +388,101 @@ defmodule Dream.Character do
   """
   def change_trait(%Trait{} = trait) do
     Trait.changeset(trait, %{})
+  end
+
+  alias Dream.Character.Narrative
+
+  @doc """
+  Returns the list of narratives.
+
+  ## Examples
+
+      iex> list_narratives()
+      [%Narrative{}, ...]
+
+  """
+  def list_narratives do
+    Repo.all(Narrative)
+  end
+
+  @doc """
+  Gets a single narrative.
+
+  Raises `Ecto.NoResultsError` if the Narrative does not exist.
+
+  ## Examples
+
+      iex> get_narrative!(123)
+      %Narrative{}
+
+      iex> get_narrative!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_narrative!(id), do: Repo.get!(Narrative, id)
+
+  @doc """
+  Creates a narrative.
+
+  ## Examples
+
+      iex> create_narrative(%{field: value})
+      {:ok, %Narrative{}}
+
+      iex> create_narrative(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_narrative(attrs \\ %{}) do
+    %Narrative{}
+    |> Narrative.new_changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a narrative.
+
+  ## Examples
+
+      iex> update_narrative(narrative, %{field: new_value})
+      {:ok, %Narrative{}}
+
+      iex> update_narrative(narrative, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_narrative(%Narrative{} = narrative, attrs) do
+    narrative
+    |> Narrative.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a Narrative.
+
+  ## Examples
+
+      iex> delete_narrative(narrative)
+      {:ok, %Narrative{}}
+
+      iex> delete_narrative(narrative)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_narrative(%Narrative{} = narrative) do
+    Repo.delete(narrative)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking narrative changes.
+
+  ## Examples
+
+      iex> change_narrative(narrative)
+      %Ecto.Changeset{source: %Narrative{}}
+
+  """
+  def change_narrative(%Narrative{} = narrative) do
+    Narrative.changeset(narrative, %{})
   end
 end

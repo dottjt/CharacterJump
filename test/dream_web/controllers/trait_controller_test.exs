@@ -2,70 +2,63 @@ defmodule DreamWeb.TraitControllerTest do
   use DreamWeb.ConnCase
 
   alias Dream.Character
+  alias Dream.Character.Trait
 
-  @create_attrs %{display_name: "some display_name", excerpt: "some excerpt", featured_image: "some featured_image", name: "some name"}
-  @update_attrs %{display_name: "some updated display_name", excerpt: "some updated excerpt", featured_image: "some updated featured_image", name: "some updated name"}
-  @invalid_attrs %{display_name: nil, excerpt: nil, featured_image: nil, name: nil}
+  @create_attrs %{display_name: "some display_name", name: "some name"}
+  @update_attrs %{display_name: "some updated display_name", name: "some updated name"}
+  @invalid_attrs %{display_name: nil, name: nil}
 
   def fixture(:trait) do
     {:ok, trait} = Character.create_trait(@create_attrs)
     trait
   end
 
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
   describe "index" do
     test "lists all traits", %{conn: conn} do
       conn = get conn, trait_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Traits"
-    end
-  end
-
-  describe "new trait" do
-    test "renders form", %{conn: conn} do
-      conn = get conn, trait_path(conn, :new)
-      assert html_response(conn, 200) =~ "New Trait"
+      assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create trait" do
-    test "redirects to show when data is valid", %{conn: conn} do
+    test "renders trait when data is valid", %{conn: conn} do
       conn = post conn, trait_path(conn, :create), trait: @create_attrs
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == trait_path(conn, :show, id)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get conn, trait_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Trait"
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "display_name" => "some display_name",
+        "name" => "some name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post conn, trait_path(conn, :create), trait: @invalid_attrs
-      assert html_response(conn, 200) =~ "New Trait"
-    end
-  end
-
-  describe "edit trait" do
-    setup [:create_trait]
-
-    test "renders form for editing chosen trait", %{conn: conn, trait: trait} do
-      conn = get conn, trait_path(conn, :edit, trait)
-      assert html_response(conn, 200) =~ "Edit Trait"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
   describe "update trait" do
     setup [:create_trait]
 
-    test "redirects when data is valid", %{conn: conn, trait: trait} do
+    test "renders trait when data is valid", %{conn: conn, trait: %Trait{id: id} = trait} do
       conn = put conn, trait_path(conn, :update, trait), trait: @update_attrs
-      assert redirected_to(conn) == trait_path(conn, :show, trait)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, trait_path(conn, :show, trait)
-      assert html_response(conn, 200) =~ "some updated display_name"
+      conn = get conn, trait_path(conn, :show, id)
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "display_name" => "some updated display_name",
+        "name" => "some updated name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn, trait: trait} do
       conn = put conn, trait_path(conn, :update, trait), trait: @invalid_attrs
-      assert html_response(conn, 200) =~ "Edit Trait"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
@@ -74,7 +67,7 @@ defmodule DreamWeb.TraitControllerTest do
 
     test "deletes chosen trait", %{conn: conn, trait: trait} do
       conn = delete conn, trait_path(conn, :delete, trait)
-      assert redirected_to(conn) == trait_path(conn, :index)
+      assert response(conn, 204)
       assert_error_sent 404, fn ->
         get conn, trait_path(conn, :show, trait)
       end

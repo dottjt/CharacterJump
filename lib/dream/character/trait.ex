@@ -9,6 +9,7 @@ defmodule Dream.Character.Trait do
     field :name, :string
     field :display_name, :string
     field :category, :string
+    field :selected, :boolean, default: false
 
     # field :character_id, :binary_id
     belongs_to :character, Dream.Core.Character
@@ -19,7 +20,14 @@ defmodule Dream.Character.Trait do
   @doc false
   def changeset(trait, attrs) do
     trait
-    |> cast(attrs, [:name, :display_name, :category])
-    |> validate_required([:name, :display_name, :category])
+    |> cast(attrs, [:name, :display_name, :selected, :category])
+    |> validate_required([:name, :display_name, :selected, :category])
   end
+
+  def new_changeset(trait, attrs) do
+    trait
+    |> cast(attrs, [:name, :display_name, :selected, :category, :character_id])
+    |> validate_required([:name, :display_name, :selected, :category, :character_id])
+  end
+
 end

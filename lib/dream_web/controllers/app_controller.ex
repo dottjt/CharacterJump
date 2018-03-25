@@ -15,17 +15,19 @@ defmodule DreamWeb.AppController do
     # this needs to get user state from coherence. 
 
     user = Coherence.current_user_name(conn)
-    IO.inspect user
 
     timeline = 
       Core.list_days_assoc()
         # |> Enum.map(fn day ->  end)
 
     characters = Core.list_characters_assoc()
+    narratives = Dream.Character.list_narratives()
+    journals = Dream.Character.list_journals()
+    traits = Dream.Character.list_traits()
 
     # strftime_str = Timex.format!(datetime, "%y-%m-%d %H:%M", :strftime) # "%Y-%m-%d %H:%M:%S"
+    
 
-
-    render conn, DreamWeb.AppView, "initial_state.json", timeline: timeline, characters: characters
+    render conn, DreamWeb.AppView, "initial_state.json", timeline: timeline, characters: characters, traits: traits, narratives: narratives, journals: journals
   end
 end

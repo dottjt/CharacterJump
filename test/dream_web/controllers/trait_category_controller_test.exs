@@ -2,70 +2,65 @@ defmodule DreamWeb.TraitCategoryControllerTest do
   use DreamWeb.ConnCase
 
   alias Dream.Trait
+  alias Dream.Trait.TraitCategory
 
-  @create_attrs %{display_name: "some display_name", name: "some name"}
-  @update_attrs %{display_name: "some updated display_name", name: "some updated name"}
-  @invalid_attrs %{display_name: nil, name: nil}
+  @create_attrs %{category: "some category", display_name: "some display_name", name: "some name"}
+  @update_attrs %{category: "some updated category", display_name: "some updated display_name", name: "some updated name"}
+  @invalid_attrs %{category: nil, display_name: nil, name: nil}
 
   def fixture(:trait_category) do
     {:ok, trait_category} = Trait.create_trait_category(@create_attrs)
     trait_category
   end
 
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
   describe "index" do
     test "lists all trait_categories", %{conn: conn} do
       conn = get conn, trait_category_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Trait categories"
-    end
-  end
-
-  describe "new trait_category" do
-    test "renders form", %{conn: conn} do
-      conn = get conn, trait_category_path(conn, :new)
-      assert html_response(conn, 200) =~ "New Trait category"
+      assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create trait_category" do
-    test "redirects to show when data is valid", %{conn: conn} do
+    test "renders trait_category when data is valid", %{conn: conn} do
       conn = post conn, trait_category_path(conn, :create), trait_category: @create_attrs
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == trait_category_path(conn, :show, id)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get conn, trait_category_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Trait category"
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "category" => "some category",
+        "display_name" => "some display_name",
+        "name" => "some name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post conn, trait_category_path(conn, :create), trait_category: @invalid_attrs
-      assert html_response(conn, 200) =~ "New Trait category"
-    end
-  end
-
-  describe "edit trait_category" do
-    setup [:create_trait_category]
-
-    test "renders form for editing chosen trait_category", %{conn: conn, trait_category: trait_category} do
-      conn = get conn, trait_category_path(conn, :edit, trait_category)
-      assert html_response(conn, 200) =~ "Edit Trait category"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
   describe "update trait_category" do
     setup [:create_trait_category]
 
-    test "redirects when data is valid", %{conn: conn, trait_category: trait_category} do
+    test "renders trait_category when data is valid", %{conn: conn, trait_category: %TraitCategory{id: id} = trait_category} do
       conn = put conn, trait_category_path(conn, :update, trait_category), trait_category: @update_attrs
-      assert redirected_to(conn) == trait_category_path(conn, :show, trait_category)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, trait_category_path(conn, :show, trait_category)
-      assert html_response(conn, 200) =~ "some updated display_name"
+      conn = get conn, trait_category_path(conn, :show, id)
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "category" => "some updated category",
+        "display_name" => "some updated display_name",
+        "name" => "some updated name"}
     end
 
     test "renders errors when data is invalid", %{conn: conn, trait_category: trait_category} do
       conn = put conn, trait_category_path(conn, :update, trait_category), trait_category: @invalid_attrs
-      assert html_response(conn, 200) =~ "Edit Trait category"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
@@ -74,7 +69,7 @@ defmodule DreamWeb.TraitCategoryControllerTest do
 
     test "deletes chosen trait_category", %{conn: conn, trait_category: trait_category} do
       conn = delete conn, trait_category_path(conn, :delete, trait_category)
-      assert redirected_to(conn) == trait_category_path(conn, :index)
+      assert response(conn, 204)
       assert_error_sent 404, fn ->
         get conn, trait_category_path(conn, :show, trait_category)
       end

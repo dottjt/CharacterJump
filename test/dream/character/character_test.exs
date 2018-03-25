@@ -250,4 +250,126 @@ defmodule Dream.CharacterTest do
       assert %Ecto.Changeset{} = Character.change_trait(trait)
     end
   end
+
+  describe "traits" do
+    alias Dream.Character.Trait
+
+    @valid_attrs %{display_name: "some display_name", name: "some name"}
+    @update_attrs %{display_name: "some updated display_name", name: "some updated name"}
+    @invalid_attrs %{display_name: nil, name: nil}
+
+    def trait_fixture(attrs \\ %{}) do
+      {:ok, trait} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Character.create_trait()
+
+      trait
+    end
+
+    test "list_traits/0 returns all traits" do
+      trait = trait_fixture()
+      assert Character.list_traits() == [trait]
+    end
+
+    test "get_trait!/1 returns the trait with given id" do
+      trait = trait_fixture()
+      assert Character.get_trait!(trait.id) == trait
+    end
+
+    test "create_trait/1 with valid data creates a trait" do
+      assert {:ok, %Trait{} = trait} = Character.create_trait(@valid_attrs)
+      assert trait.display_name == "some display_name"
+      assert trait.name == "some name"
+    end
+
+    test "create_trait/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Character.create_trait(@invalid_attrs)
+    end
+
+    test "update_trait/2 with valid data updates the trait" do
+      trait = trait_fixture()
+      assert {:ok, trait} = Character.update_trait(trait, @update_attrs)
+      assert %Trait{} = trait
+      assert trait.display_name == "some updated display_name"
+      assert trait.name == "some updated name"
+    end
+
+    test "update_trait/2 with invalid data returns error changeset" do
+      trait = trait_fixture()
+      assert {:error, %Ecto.Changeset{}} = Character.update_trait(trait, @invalid_attrs)
+      assert trait == Character.get_trait!(trait.id)
+    end
+
+    test "delete_trait/1 deletes the trait" do
+      trait = trait_fixture()
+      assert {:ok, %Trait{}} = Character.delete_trait(trait)
+      assert_raise Ecto.NoResultsError, fn -> Character.get_trait!(trait.id) end
+    end
+
+    test "change_trait/1 returns a trait changeset" do
+      trait = trait_fixture()
+      assert %Ecto.Changeset{} = Character.change_trait(trait)
+    end
+  end
+
+  describe "narratives" do
+    alias Dream.Character.Narrative
+
+    @valid_attrs %{text: "some text"}
+    @update_attrs %{text: "some updated text"}
+    @invalid_attrs %{text: nil}
+
+    def narrative_fixture(attrs \\ %{}) do
+      {:ok, narrative} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Character.create_narrative()
+
+      narrative
+    end
+
+    test "list_narratives/0 returns all narratives" do
+      narrative = narrative_fixture()
+      assert Character.list_narratives() == [narrative]
+    end
+
+    test "get_narrative!/1 returns the narrative with given id" do
+      narrative = narrative_fixture()
+      assert Character.get_narrative!(narrative.id) == narrative
+    end
+
+    test "create_narrative/1 with valid data creates a narrative" do
+      assert {:ok, %Narrative{} = narrative} = Character.create_narrative(@valid_attrs)
+      assert narrative.text == "some text"
+    end
+
+    test "create_narrative/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Character.create_narrative(@invalid_attrs)
+    end
+
+    test "update_narrative/2 with valid data updates the narrative" do
+      narrative = narrative_fixture()
+      assert {:ok, narrative} = Character.update_narrative(narrative, @update_attrs)
+      assert %Narrative{} = narrative
+      assert narrative.text == "some updated text"
+    end
+
+    test "update_narrative/2 with invalid data returns error changeset" do
+      narrative = narrative_fixture()
+      assert {:error, %Ecto.Changeset{}} = Character.update_narrative(narrative, @invalid_attrs)
+      assert narrative == Character.get_narrative!(narrative.id)
+    end
+
+    test "delete_narrative/1 deletes the narrative" do
+      narrative = narrative_fixture()
+      assert {:ok, %Narrative{}} = Character.delete_narrative(narrative)
+      assert_raise Ecto.NoResultsError, fn -> Character.get_narrative!(narrative.id) end
+    end
+
+    test "change_narrative/1 returns a narrative changeset" do
+      narrative = narrative_fixture()
+      assert %Ecto.Changeset{} = Character.change_narrative(narrative)
+    end
+  end
 end

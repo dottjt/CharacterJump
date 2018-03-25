@@ -22,6 +22,8 @@ defmodule DreamWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session    
+    plug Coherence.Authentication.Session     
   end
 
   scope "/" do
@@ -38,7 +40,9 @@ defmodule DreamWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+    get "/test-app", PageController, :test_app
     # get "/guides"
+
 
   end
 
@@ -48,13 +52,14 @@ defmodule DreamWeb.Router do
 
     get "/initial_state", AppController, :initial_state
 
-    resources "/days", DayController
-    resources "/characters", CharacterController
-    resources "/descriptions", DescriptionController
-    resources "/journals", JournalController
-    resources "/additional_descriptions", AdditionalDescriptionController
-    resources "/traits", TraitController
-    resources "/trait_categories", TraitCategoryController 
+    resources "/days", DayController, except: [:new, :edit]
+    resources "/characters", CharacterController, except: [:new, :edit]
+    resources "/descriptions", DescriptionController, except: [:new, :edit]
+    resources "/journals", JournalController, except: [:new, :edit]
+    resources "/additional_descriptions", AdditionalDescriptionController, except: [:new, :edit]
+    resources "/traits", TraitController, except: [:new, :edit]
+    resources "/trait_categories", TraitCategoryController, except: [:new, :edit]
+    resources "/narratives", NarrativeController, except: [:new, :edit]
   end
 
   scope "/dashboard", DreamWeb do 

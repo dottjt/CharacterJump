@@ -4,57 +4,39 @@ defmodule DreamWeb.JournalController do
   alias Dream.Character
   alias Dream.Character.Journal
 
+  action_fallback DreamWeb.FallbackController
+
   def index(conn, _params) do
     journals = Character.list_journals()
-    render(conn, "index.html", journals: journals)
-  end
-
-  def new(conn, _params) do
-    changeset = Character.change_journal(%Journal{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "index.json", journals: journals)
   end
 
   def create(conn, %{"journal" => journal_params}) do
-    case Character.create_journal(journal_params) do
-      {:ok, journal} ->
-        conn
-        |> put_flash(:info, "Journal created successfully.")
-        |> redirect(to: journal_path(conn, :show, journal))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+    with {:ok, %Journal{} = journal} <- Character.create_journal(journal_params) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", journal_path(conn, :show, journal))
+      |> render(DreamWeb.AppView, "journal.json", journal: journal)
     end
   end
 
   def show(conn, %{"id" => id}) do
     journal = Character.get_journal!(id)
-    render(conn, "show.html", journal: journal)
-  end
-
-  def edit(conn, %{"id" => id}) do
-    journal = Character.get_journal!(id)
-    changeset = Character.change_journal(journal)
-    render(conn, "edit.html", journal: journal, changeset: changeset)
+    render(conn, DreamWeb.AppView, "journal.json", journal: journal)
   end
 
   def update(conn, %{"id" => id, "journal" => journal_params}) do
     journal = Character.get_journal!(id)
 
-    case Character.update_journal(journal, journal_params) do
-      {:ok, journal} ->
-        conn
-        |> put_flash(:info, "Journal updated successfully.")
-        |> redirect(to: journal_path(conn, :show, journal))
-      {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", journal: journal, changeset: changeset)
+    with {:ok, %Journal{} = journal} <- Character.update_journal(journal, journal_params) do
+      render(conn, DreamWeb.AppView, "journal.json", journal: journal)
     end
   end
 
   def delete(conn, %{"id" => id}) do
     journal = Character.get_journal!(id)
-    {:ok, _journal} = Character.delete_journal(journal)
-
-    conn
-    |> put_flash(:info, "Journal deleted successfully.")
-    |> redirect(to: journal_path(conn, :index))
+    with {:ok, %Journal{}} <- Character.delete_journal(journal) do
+      send_resp(conn, :no_content, "")
+    end
   end
 end

@@ -6,7 +6,7 @@ defmodule Dream.Repo.Migrations.CreateAdditionalDescriptions do
       add :id, :binary_id, primary_key: true
       add :display_name, :string
       add :text, :text
-      add :character_id, references(:characters, on_delete: :nothing, type: :binary_id)
+      add :character_id, references(:characters, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end

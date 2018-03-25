@@ -2,6 +2,7 @@ defmodule DreamWeb.AdditionalDescriptionControllerTest do
   use DreamWeb.ConnCase
 
   alias Dream.Character
+  alias Dream.Character.AdditionalDescription
 
   @create_attrs %{display_name: "some display_name", text: "some text"}
   @update_attrs %{display_name: "some updated display_name", text: "some updated text"}
@@ -12,60 +13,52 @@ defmodule DreamWeb.AdditionalDescriptionControllerTest do
     additional_description
   end
 
+  setup %{conn: conn} do
+    {:ok, conn: put_req_header(conn, "accept", "application/json")}
+  end
+
   describe "index" do
     test "lists all additional_descriptions", %{conn: conn} do
       conn = get conn, additional_description_path(conn, :index)
-      assert html_response(conn, 200) =~ "Listing Additional descriptions"
-    end
-  end
-
-  describe "new additional_description" do
-    test "renders form", %{conn: conn} do
-      conn = get conn, additional_description_path(conn, :new)
-      assert html_response(conn, 200) =~ "New Additional description"
+      assert json_response(conn, 200)["data"] == []
     end
   end
 
   describe "create additional_description" do
-    test "redirects to show when data is valid", %{conn: conn} do
+    test "renders additional_description when data is valid", %{conn: conn} do
       conn = post conn, additional_description_path(conn, :create), additional_description: @create_attrs
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == additional_description_path(conn, :show, id)
+      assert %{"id" => id} = json_response(conn, 201)["data"]
 
       conn = get conn, additional_description_path(conn, :show, id)
-      assert html_response(conn, 200) =~ "Show Additional description"
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "display_name" => "some display_name",
+        "text" => "some text"}
     end
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post conn, additional_description_path(conn, :create), additional_description: @invalid_attrs
-      assert html_response(conn, 200) =~ "New Additional description"
-    end
-  end
-
-  describe "edit additional_description" do
-    setup [:create_additional_description]
-
-    test "renders form for editing chosen additional_description", %{conn: conn, additional_description: additional_description} do
-      conn = get conn, additional_description_path(conn, :edit, additional_description)
-      assert html_response(conn, 200) =~ "Edit Additional description"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
   describe "update additional_description" do
     setup [:create_additional_description]
 
-    test "redirects when data is valid", %{conn: conn, additional_description: additional_description} do
+    test "renders additional_description when data is valid", %{conn: conn, additional_description: %AdditionalDescription{id: id} = additional_description} do
       conn = put conn, additional_description_path(conn, :update, additional_description), additional_description: @update_attrs
-      assert redirected_to(conn) == additional_description_path(conn, :show, additional_description)
+      assert %{"id" => ^id} = json_response(conn, 200)["data"]
 
-      conn = get conn, additional_description_path(conn, :show, additional_description)
-      assert html_response(conn, 200) =~ "some updated display_name"
+      conn = get conn, additional_description_path(conn, :show, id)
+      assert json_response(conn, 200)["data"] == %{
+        "id" => id,
+        "display_name" => "some updated display_name",
+        "text" => "some updated text"}
     end
 
     test "renders errors when data is invalid", %{conn: conn, additional_description: additional_description} do
       conn = put conn, additional_description_path(conn, :update, additional_description), additional_description: @invalid_attrs
-      assert html_response(conn, 200) =~ "Edit Additional description"
+      assert json_response(conn, 422)["errors"] != %{}
     end
   end
 
@@ -74,7 +67,7 @@ defmodule DreamWeb.AdditionalDescriptionControllerTest do
 
     test "deletes chosen additional_description", %{conn: conn, additional_description: additional_description} do
       conn = delete conn, additional_description_path(conn, :delete, additional_description)
-      assert redirected_to(conn) == additional_description_path(conn, :index)
+      assert response(conn, 204)
       assert_error_sent 404, fn ->
         get conn, additional_description_path(conn, :show, additional_description)
       end

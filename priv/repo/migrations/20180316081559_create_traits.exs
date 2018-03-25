@@ -7,8 +7,9 @@ defmodule Dream.Repo.Migrations.CreateTraits do
       add :name, :string
       add :display_name, :string
       add :category, :string
-
-      add :character_id, references(:characters, on_delete: :nothing, type: :binary_id)
+      add :selected, :boolean
+        
+      add :character_id, references(:characters, on_delete: :delete_all, type: :binary_id)
 
       timestamps()
     end
