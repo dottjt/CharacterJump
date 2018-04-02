@@ -24,7 +24,7 @@ class RecordSlide3 extends Component {
         <div className="RS__slide">
 
           <SlideTitle title="Did you notice any patterns or relations between characters?"/>
-          <CharacterBox chooseCharacter={store.chooseCharacter}/>
+          <CharacterBox chooseCharacters={store.chooseCharacters}/>
 
           <SlideTitle title="Relations"/>
           <CharacterRelations characterRelations={store.characterRelations} />
@@ -32,8 +32,8 @@ class RecordSlide3 extends Component {
         </div>
 
         <div className="RS__bottom">
-          <PageLink text="previous page" link="/record/step-2" clickFunction={() => actions.pageBackward()}/>
-          <PageLink text="next page" link="/record/step-3" clickFunction={() => actions.pageForward()}/>
+          <PageLink text="previous page" link="/dashboard/record/step-2" clickFunction={() => actions.pageBackward()}/>
+          <PageLink text="next page" link="/dashboard/record/step-3" clickFunction={() => actions.pageForward()}/>
         </div>
 
       </main>
@@ -41,14 +41,14 @@ class RecordSlide3 extends Component {
   }
 }
 
-let CharacterBox = ({chooseCharacter}) => {
+let CharacterBox = ({chooseCharacters}) => {
 
-  let selectedCharacters = chooseCharacter.filter(char => char.selected === true);
+  let selectedCharacters = chooseCharacters.filter(char => char.selected === true);
 
   return (
     <div className="RS__character__box">
     {selectedCharacters.map(selectedCharacter =>
-      <div className="RS__box">
+      <div key={selectedCharacter.id} className="RS__box">
         {selectedCharacter.display_name}
       </div>
     )
@@ -61,7 +61,7 @@ let CharacterBox = ({chooseCharacter}) => {
 let CharacterRelations = ({characterRelations}) => (
   <div className="RS__character__relations">
     {characterRelations.map(characterRelation => 
-      <div className="RS__character__relation">
+      <div key={characterRelation.id} className="RS__character__relation">
         {characterRelation.display_name}
       </div>
     )

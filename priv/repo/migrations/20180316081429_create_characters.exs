@@ -10,7 +10,10 @@ defmodule Dream.Repo.Migrations.CreateCharacters do
       add :featured_image, :string
       add :icon, :string
       add :selected, :boolean
+      
       add :day_id, references(:days, on_delete: :nothing, type: :binary_id)
+      add :journal_id, references(:journals, on_delete: :nothing, type: :binary_id)
+      add :narrative_id, references(:narratives, on_delete: :nothing, type: :binary_id)
 
       timestamps()
     end

@@ -25,13 +25,28 @@ class CharacterNew extends Component {
     
     let setCharacter = this.props.state.reducer.setCharacter;
 
-    let character = 
-      setCharacter !== undefined ? characterType(state.editPage, store.inputDisplayName, store.inputDescription, store.setCharacter.description, store.selectedTraits) : {}
-
     let character_id = 
       setCharacter !== undefined ? setCharacter.id : ""
 
-
+    let character = 
+        state.editPage
+      ?
+        {
+          display_name: store.inputDisplayName,
+          description: {...setCharacter.description, text: store.inputDescription},
+          traits: store.selectedTraits, 
+          // journals: [],
+          // additionals: []
+        }
+      :
+        {
+          display_name: store.inputDisplayName,
+          description: {text: store.inputDescription},
+          traits: store.selectedTraits,
+          // journals: [],
+          // additionals: []
+        }
+  
     return (
       <main>
 
@@ -56,12 +71,16 @@ class CharacterNew extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     let reducer = this.props.state.reducer;
+    if (reducer.setCharacter !== nextProps.state.reducer.setCharacter) return true;
+    
     if (reducer.inputDisplayName !== nextProps.state.reducer.inputDisplayName) return true;
     if (reducer.inputDescription !== nextProps.state.reducer.inputDescription) return true;
+
     if (reducer.selectedTraits !== nextProps.state.reducer.selectedTraits) return true;
     if (reducer.selectedCategory !== nextProps.state.reducer.selectedCategory) return true;
+    if (reducer.categories !== nextProps.state.reducer.categories) return true;    
     if (reducer.traits !== nextProps.state.reducer.traits) return true;
-    if (reducer.setCharacter !== nextProps.state.reducer.setCharacter) return true;
+
     return false;      
   }
 }
@@ -101,36 +120,24 @@ let Save = ({editPage, character_id, character, editCharacter, newCharacter}) =>
     {
       editPage
     ?
-      <div className="MRC__balanced" onClick={() => editCharacter(character, character_id)}>
+      <div className="App__button" onClick={() => editCharacter(character, character_id)}>
         Edit. 
       </div>
     :
-      <div className="MRC__balanced" onClick={() => newCharacter(character)}>
+      <div className="App__button" onClick={() => newCharacter(character)}>
         Save. 
       </div>
     }
   </div>
 )
 
-let characterType = (editPage, inputDisplayName, inputDescription, description, selectedTraits) => (
-  editPage
-  ?
-    {
-      display_name: inputDisplayName,
-      description: {...description, text: inputDescription},
-      traits: selectedTraits, 
-      journals: [],
-      additionals: []
-    }
-  :
-    {
-      display_name: inputDisplayName,
-      description: {text: inputDescription},
-      traits: selectedTraits,
-      journals: [],
-      additionals: []
-    }
-)
+// let characterType = (editPage, inputDisplayName, inputDescription, description, selectedTraits) => (
+
+    // let character = 
+    //   setCharacter !== undefined ? characterType(state.editPage, store.inputDisplayName, store.inputDescription, store.setCharacter.description, store.selectedTraits) : {}
+
+
+// )
 
 
 export default CharacterNew;

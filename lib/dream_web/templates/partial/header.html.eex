@@ -1,0 +1,12 @@
+<header>
+  <nav class="header__left" role="navigation">
+    <img className="header__logo" src="" alt=""/>
+    <a href="/community">Community</a>
+    <a href="/guides">Guides</a>
+  </nav>
+  
+  <!-- <div class="header__right">
+    <a href="/login">Login</a>
+    <a href="/register">Register</a>
+  </div> -->
+</header>

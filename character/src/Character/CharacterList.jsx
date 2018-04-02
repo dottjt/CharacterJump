@@ -19,8 +19,8 @@ class CharacterList extends Component {
     return (
       <main>
 
-        <AppTitle title="Your Characters"/>
-        <AppTop title="New Character" link="/characters/new"/>
+        <AppTitle title="Characters"/>
+        <AppTop title="New Character" tooltip="Identify a new character." link="/dashboard/characters/new"/>
         <List characters={store.characters} />
       
       </main>
@@ -34,7 +34,7 @@ let List = ({characters}) => (
       characters
     ?
       characters.map(character => (
-        <Individual character={character}/>
+        <Individual key={character.id} character={character}/>
       ))
     :
       <div>Sorry, you have no characters</div>
@@ -42,8 +42,8 @@ let List = ({characters}) => (
   </div>
 )
 
-let Individual = ({character}) => (
-  <div className="App__item" key={character.id}>
+let Individual = ({key, character}) => (
+  <div className="App__item" key={key}>
 
     <CharacterTop name={character.name} 
                   display_name={character.display_name} 
@@ -58,10 +58,10 @@ let CharacterTop = ({name, display_name, secondary_id}) => (
   <div className="App__item__top">
     <div className="App__item__top__left">
       <AppTitleSecondary title={display_name}/>
-      <h5 className="App__item-frequency">Frequency:</h5>
+      {/* <h5 className="App__item-frequency">Frequency:</h5> */}
     </div>
-    <Link to={`/characters/${secondary_id}-${name}`}>
-      view.
+    <Link className="App__button__secondary" to={`/dashboard/characters/${secondary_id}-${name}`}>
+      view
     </Link> 
   </div>
 )

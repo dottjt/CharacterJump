@@ -67,8 +67,27 @@ judge = Ecto.Changeset.change(%Character{
   icon: "",
 })
 
+cake = Ecto.Changeset.change(%Character{
+  secondary_id: "234234",
+  name: "the-cake",
+  display_name: "The Cake",
+  featured_image: "",
+  icon: "",
+})
 
-victim_description = Ecto.Changeset.change(%Description{
+silly = Ecto.Changeset.change(%Character{
+  secondary_id: "234234",
+  name: "the-silly",
+  display_name: "The Silly Face Man",
+  featured_image: "",
+  icon: "",
+})
+
+
+
+
+
+description = Ecto.Changeset.change(%Description{
   text: "When you feel vulnerable and as if the world is out to get you. It's pretty awful.",
 })
 
@@ -102,35 +121,42 @@ victim_journal_two = Ecto.Changeset.change(%Journal{
 
 
 victim_with_traits = Ecto.Changeset.put_assoc(victim, :traits, [victim_trait_one, victim_trait_two, victim_trait_three])
-victim_with_description = Ecto.Changeset.put_assoc(victim_with_traits, :description, victim_description)
-victim_with_journals = Ecto.Changeset.put_assoc(victim_with_description, :journals, [victim_journal_one, victim_journal_two])
+victim_with_description = Ecto.Changeset.put_assoc(victim_with_traits, :description, description)
 
 judge_with_traits = Ecto.Changeset.put_assoc(judge, :traits, [victim_trait_one, victim_trait_two, victim_trait_three])
-judge_with_description = Ecto.Changeset.put_assoc(judge_with_traits, :description, victim_description)
-judge_with_journals = Ecto.Changeset.put_assoc(judge_with_description, :journals, [victim_journal_one, victim_journal_two])
+judge_with_description = Ecto.Changeset.put_assoc(judge_with_traits, :description, description)
+
+cake_with_traits = Ecto.Changeset.put_assoc(silly, :traits, [victim_trait_one, victim_trait_two, victim_trait_three])
+cake_with_description = Ecto.Changeset.put_assoc(cake_with_traits, :description, description)
+
+silly_with_traits = Ecto.Changeset.put_assoc(silly, :traits, [victim_trait_one, victim_trait_two, victim_trait_three])
+silly_with_description = Ecto.Changeset.put_assoc(silly_with_traits, :description, description)
 
 
-Repo.insert!(victim_with_journals)
+
+Repo.insert!(victim_with_description)
 
 
 timeline_one = Ecto.Changeset.change(%Day{
   name: "the-worst",
   display_name: "The Worst"
-  # characters: []]
 })
 
 timeline_two = Ecto.Changeset.change(%Day{
   name: "the-pretender-day-of-days",
   display_name: "The Pretender Is Me"
-  # characters: []]
 })
 
 
+timeline_one_with_characters = Ecto.Changeset.put_assoc(timeline_one, :characters, [judge_with_description, victim_with_description])
+timeline_two_with_characters = Ecto.Changeset.put_assoc(timeline_one, :characters, [cake_with_description, silly_with_description])
 
-timeline_with_characters = Ecto.Changeset.put_assoc(timeline_one, :characters, [judge_with_journals])
+Repo.insert!(timeline_one_with_characters)
+Repo.insert!(timeline_two_with_characters)
 
-Repo.insert!(timeline_with_characters)
-Repo.insert!(timeline_two)
+
+
+
 
 narrative_one = Ecto.Changeset.change(%Narrative{
   text: "Not feeling good enough"

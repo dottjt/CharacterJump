@@ -61,13 +61,29 @@ export function* changeAdditionalTextSaga(action) {
 }
 
 
+// Timeline
+
+export const setTimeline = timeline_id => ({type: 'SET_TIMELINE', timeline_id});
+export const setTimelineSuccess = timeline_id => ({type: 'SET_TIMELINE_SUCCESS', timeline_id});
+
+export function* setTimelineSaga(action) {
+  yield put(setTimelineSuccess(action.timeline_id));
+}
+
+
 // Journal
 
 export const setJournal = journal_id => ({type: 'SET_JOURNAL', journal_id});
 export const setJournalSuccess = journal_id => ({type: 'SET_JOURNAL_SUCCESS', journal_id});
 
+export const selectJournalCategory = category => ({type: 'SELECT_JOURNAL_CATEGORY', category});
+export const selectJournalCategorySuccess = category => ({type: 'SELECT_JOURNAL_CATEGORY_SUCCESS', category});
+
 export function* setJournalSaga(action) {
   yield put(setJournalSuccess(action.journal_id));
+}
+export function* selectJournalCategorySaga(action) {
+  yield put(selectJournalCategorySuccess(action.category));
 }
 
 
@@ -157,6 +173,7 @@ export function* removeTraitSaga(action) {
 
 
 
+
 // MNCTP - ASYNC NewCharacterTraitPicker
 
 export const newCharacter = character => ({type: 'NEW_CHARACTER', character});
@@ -175,17 +192,17 @@ let removeCharacterApi = character_id => axios.delete('http://localhost:4000/api
 export function* newCharacterSaga(action) {
   let data = yield call(newCharacterApi, action.character);  
   yield put(newCharacterSuccess(data.data));
-  yield history.push(`/characters/${data.data.secondary_id}-${data.data.name}`)
+  yield history.push(`/dashboard/characters/${data.data.secondary_id}-${data.data.name}`)
 }
 export function* editCharacterSaga(action) {
   let data = yield call(editCharacterApi, action.character, action.character_id);
   yield put(editCharacterSuccess(data.data, data.data.id));
-  yield history.push(`/characters/${data.data.secondary_id}-${data.data.name}`)  
+  yield history.push(`/dashboard/characters/${data.data.secondary_id}-${data.data.name}`)  
 }
 export function* removeCharacterSaga(action) {
   yield call(removeCharacterApi, action.character_id);
   yield put(removeCharacterSuccess(action.character_id));
-  yield history.push("/characters")
+  yield history.push("/dashboard/characters")
 }
 
 
@@ -284,9 +301,7 @@ export function* editDescriptionSaga(action) {
 
 
 export function* newAdditionalSaga(action) {
-  console.log(action.additional);
   let data = yield call(newAdditionalApi, action.additional);
-  console.log(data.data)
   yield put(newAdditionalSuccess(data.data, data.data.id));
 }
 
@@ -318,40 +333,31 @@ export function* initialStateSaga() {
   
   let path = window.location.pathname.split("/");
 
-  if(path[1] === "record" && path.length === 1) {
-    // I'm not sure if this is supposed to do anything? It may very well not for this action.
+  if(path[2] === "record" && path.length === 2) {
     return 
   }
 
-  if(path[1] === "journals" && path.length > 2) {
-
-    // new
-    if(path[3] == "new") {
-      return      
+  if(path.length > 3) {
+  
+    if(path[2] === "journals") {
+      let journal_id = path[3];
+      yield put(setJournalSuccess(journal_id)); return
     }
 
-    // individual 
-      let journal_id = path[2].split("-")[0];
-      yield put(setJournalSuccess(journal_id));
-  }
-
-  if(path[1] === "characters" && path.length > 2) {
-
-    // edit
-    if(path[3] === "edit") {
-      let secondary_id = path[2].split("-")[0];
-      yield put(setCharacterFormSuccess(secondary_id));
-      return
+    if(path[2] === "characters" && path[4] === "edit") {
+      let secondary_id = path[3].split("-")[0];
+      yield put(setCharacterFormSuccess(secondary_id)); return
     }
 
-    // new 
-    if(path[3] === "new") {
-      return
+    if(path[2] === "characters") {
+      let secondary_id = path[3].split("-")[0];
+      yield put(setCharacterSuccess(secondary_id)); return
     }
 
-    // individual
-      let secondary_id = path[2].split("-")[0];
-      yield put(setCharacterSuccess(secondary_id));
-  }
+    if(path[2] === "timeline") {
+      let id = path[3];
+      yield put(setTimelineSuccess(id)); return
+    }
+  }    
 }
 

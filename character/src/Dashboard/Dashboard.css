@@ -1,15 +1,43 @@
-.Dash__characters {
+
+.Dash__timeline {
   display: flex;
   flex-wrap: wrap;
 
   height: 16rem;
-  border: 1px solid black;
+}
 
-  margin-bottom: 4rem;
+.Dash__day {
+  width: 100%;
+  border: 1px solid black;  
+}
+
+/* CHARACTERS */
+
+.Dash__characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  height: 16rem;
+  padding: 1rem;
+
+  margin-top: 4rem;
+
+  border: 1px solid black;  
+
+
 }
 
 .Dash__character {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
   width: 100%;
+
   border: 1px solid black;  
 }
 
@@ -28,6 +56,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+
+  margin-top: 4rem;  
 }
 
 .Dash__item {
@@ -61,6 +91,7 @@
   }
 
   .Dash__character {
+    height: 3rem;    
     width: 49%;
   }
 }

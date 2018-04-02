@@ -45,7 +45,7 @@ class RecordSlide1 extends Component {
                     clickFunction={() =>actions.pageBackward}/>
 
           <NextPage text="next page" 
-                    link="/record/step-2" 
+                    link="/dashboard/record/step-2" 
                     collection={store.selectedNarratives} 
                     clickFunction={() => actions.pageForward}/>
         </div>
@@ -73,7 +73,8 @@ let SelectedNarratives = ({selectedNarratives, unselectNarrative}) => (
     ?
       <div className="RS__selected__narratives">
         {selectedNarratives.map(selectedNarrative => (
-          <SelectedNarrative selectedNarrative={selectedNarrative}
+          <SelectedNarrative key={selectedNarrative.id}
+                             selectedNarrative={selectedNarrative}
                              unselectNarrative={unselectNarrative}/>
         ))
         }
@@ -82,8 +83,8 @@ let SelectedNarratives = ({selectedNarratives, unselectNarrative}) => (
       <div className="RS__selected__narratives">No Narratives Selected</div>
 )
 
-let SelectedNarrative = ({selectedNarrative, unselectNarrative}) => (
-  <div className="RS__narrative" key={selectedNarrative.id} onClick={() => unselectNarrative(selectedNarrative)}>
+let SelectedNarrative = ({key, selectedNarrative, unselectNarrative}) => (
+  <div className="RS__narrative" key={key} onClick={() => unselectNarrative(selectedNarrative)}>
 
     <AppText className="RS__narrative__text" text={selectedNarrative.text}/>
     <Symbol symbol="-"/>
@@ -97,15 +98,16 @@ let PreviousNarratives = ({chooseNarratives, selectNarrative}) => (
     <SlideTitle title="Previous Narratives"/>
   
     {chooseNarratives.map(chooseNarrative => (
-      <PreviousNarrative chooseNarrative={chooseNarrative} 
-                         selectNarrative={selectNarrative}/>
+      <PreviousNarrative  key={chooseNarrative.id}
+                          chooseNarrative={chooseNarrative} 
+                          selectNarrative={selectNarrative}/>
       ))
     }
   </div>
 )
 
-let PreviousNarrative = ({chooseNarrative, selectNarrative}) => (
-  <div className="RS__narrative" key={chooseNarrative.id} onClick={() => selectNarrative(chooseNarrative)}>
+let PreviousNarrative = ({key, chooseNarrative, selectNarrative}) => (
+  <div className="RS__narrative" key={key} onClick={() => selectNarrative(chooseNarrative)}>
     <AppText className="RS__narrative__text" text={chooseNarrative.text}/>
     <Symbol symbol="+"/>
   </div>

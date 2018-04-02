@@ -31,7 +31,7 @@ class RecordSlide4 extends Component {
 
         <div className="RS__bottom">
           <PageLink text="previous page" link="" clickFunction={() => actions.pageBackward()}/>
-          <PageLink text="next page" link="/record/step-2" selectedNarratives={store.selectedNarratives} clickFunction={() => actions.pageForward()}/>
+          <PageLink text="next page" link="/dashboard/record/step-2" selectedNarratives={store.selectedNarratives} clickFunction={() => actions.pageForward()}/>
         </div>
 
       </main>

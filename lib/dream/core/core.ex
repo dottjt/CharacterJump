@@ -8,6 +8,7 @@ defmodule Dream.Core do
 
   alias Dream.Core.Character
 
+
   @doc """
   Returns the list of characters.
 
@@ -22,7 +23,7 @@ defmodule Dream.Core do
   end
 
   def list_characters_assoc do
-    Repo.all(Character) |> Repo.preload([:description, :journals, :traits, :additional_descriptions, :narratives])
+    Repo.all(Character) |> Repo.preload([:description, :traits, :additional_descriptions])
   end
 
   @doc """
@@ -123,8 +124,16 @@ defmodule Dream.Core do
   end
 
   def list_days_assoc do
-    Repo.all(Day) |> Repo.preload([:characters])
+    Repo.all(Day) |> Repo.preload([:characters, :narratives])
   end
+
+
+  # still need logic to only get last seven days of events, including today.
+  def list_days_assoc_seven do
+    Repo.all(Day) |> Repo.preload([:characters, :narratives])
+  end
+
+
   
   @doc """
   Gets a single day.

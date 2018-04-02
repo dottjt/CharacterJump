@@ -6,11 +6,12 @@ defmodule Dream.Repo.Migrations.CreateNarratives do
       add :id, :binary_id, primary_key: true
       add :text, :string
       # add :selected, :boolean
-      add :character_id, references(:characters, on_delete: :nothing, type: :binary_id)
+      # add :character_id, references(:characters, on_delete: :nothing, type: :binary_id)
+      add :day_id, references(:days, on_delete: :nothing, type: :binary_id)
 
       timestamps()
     end
 
-    create index(:narratives, [:character_id])
+    # create index(:narratives, [:character_id])
   end
 end

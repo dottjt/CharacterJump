@@ -20,11 +20,13 @@ class CharacterIndividual extends Component {
     this.state = {
       newJournalToggle: false, 
       newAdditionalToggle: false,       
+      removeCharacterToggle: false
     }    
   }
   
   toggleNewJournal = () => { this.setState({newJournalToggle: !this.state.newJournalToggle}); this.props.actions.changeJournalText(""); }  
   toggleAdditional = () => { this.setState({newAdditionalToggle: !this.state.newAdditionalToggle}); this.props.actions.changeAdditionalDisplayName(""); this.props.actions.changeAdditionalText(""); }
+  toggleRemove = () => this.setState({removeCharacterToggle: !this.state.removeCharacterToggle});
 
   render() {
 
@@ -37,20 +39,18 @@ class CharacterIndividual extends Component {
     return (
       <main>
 
-        <AppTitle title={setCharacter.display_name} />
+        <AppTitle title={setCharacter.display_name}/>
 
         <div className="CI__top">
           <div className="CI__traits">
 
-            <TraitsTop  id={setCharacter.id}
-                        name={setCharacter.name}
+            <TraitsTop  name={setCharacter.name}
                         secondary_id={setCharacter.secondary_id}
-                        removeCharacter={actions.removeCharacter}/>
+                        toggleRemove={this.toggleRemove}/>
 
             <TraitsList traits={setCharacter.traits}/>
 
           </div>
-
           <div className="CI__narratives">
             <NarrativesTop/>
             <NarrativesList narratives={store.narratives}/>
@@ -60,11 +60,16 @@ class CharacterIndividual extends Component {
         <Description description={setCharacter.description}/>
         <Journal     journals={setCharacter.journals}/>
 
-        <NewJournal character_id={setCharacter.character_id} 
-                    inputJournalText={store.inputJournalText} 
-                    changeJournalText={actions.changeJournalText} 
-                    newJournal={actions.newJournal} 
-                    newJournalToggle={state.newJournalToggle} />
+        <NewJournal character_id={setCharacter.character_id}
+                    inputJournalText={store.inputJournalText}
+                    changeJournalText={actions.changeJournalText}
+                    newJournal={actions.newJournal}
+                    newJournalToggle={state.newJournalToggle}
+                    toggleNewJournal={this.toggleNewJournal}/>
+        
+        <RemoveCharacterPopup removeCharacterToggle={state.removeCharacterToggle}
+                              removeCharacter={actions.removeCharacter}
+                              id={setCharacter.id}/>
         
       </main>
     )      
@@ -74,38 +79,56 @@ class CharacterIndividual extends Component {
 
 // TRAITS
 
-let TraitsTop = ({id, name, secondary_id, removeCharacter}) => (
+let TraitsTop = ({name, secondary_id, toggleRemove}) => (
   <div className="CI__traits__top">
   
     <AppTitleSecondary title="Traits"/>
     
     <div className="CI__top__buttons">
-      <div className="CI__top__remove" onClick={() => removeCharacter(id)}>
-        remove.
+      <div className="App__button__secondary CI__top__remove" onClick={() => toggleRemove()}>
+        remove
       </div>
-      <Link className="CI__top__edit" to={`/characters/${secondary_id}__${name}/edit`}>
-        edit.
+      <Link className="App__button__secondary CI__top__edit" to={`/dashboard/characters/${secondary_id}-${name}/edit`}>
+        edit
       </Link> 
     </div>
   </div>
 )
 
+let RemoveCharacterPopup = ({removeCharacterToggle, removeCharacter, id}) => (
+    removeCharacterToggle
+  ?
+    <div className="CI__overlay">
+      <div className="CI__popup">
+        <div>
+          Are you sure you want to remove your character? 
+        </div>
+        <div className="App__button__secondary" onClick={() => removeCharacter(id)}>
+          Remove
+        </div>
+      </div>
+    </div>
+  :
+    <div></div>
+)
+
+
 let TraitsList = ({traits}) => (
   <ul className="CI__traits__list">
-    { 
+    {
       traits
     ?
       traits.map(trait => (
-        <TraitsIndividual trait={trait}/>
+        <TraitsIndividual key={trait.id} trait={trait}/>
       ))
-    : 
+    :
       <div className="CI__traits__list__empty">There are no traits.</div>
     }
   </ul>
 )
 
-let TraitsIndividual = ({trait}) => (
-  <li className="CI__trait__item" key={trait.id}>
+let TraitsIndividual = ({key, trait}) => (
+  <li className="CI__trait__item" key={key}>
     <AppText text={trait.display_name}/>
   </li> 
 )
@@ -208,7 +231,7 @@ let JournalList = ({journals}) => (
       journals
     ?
       journals.map(journal => (
-        <JournalIndividual journal={journal}/>
+        <JournalIndividual key={journal.id} journal={journal}/>
       ))
     :
       <p>There are no journal entries.</p>
@@ -216,22 +239,22 @@ let JournalList = ({journals}) => (
   </ul>
 )
 
-let JournalIndividual = ({journal}) => (
-  <li className="CI__journal__item" key={journal.id}>
+let JournalIndividual = ({key, journal}) => (
+  <li className="CI__journal__item" key={key}>
     <AppText text={journal.inserted_at}/>
     <AppText text={journal.text}/>
   </li>
 )
 
-let NewJournal = ({character_id, inputJournalText, changeJournalText, newJournal, newJournalToggle}) => (
+let NewJournal = ({character_id, inputJournalText, changeJournalText, newJournal, newJournalToggle, toggleNewJournal}) => (
     newJournalToggle
   ?
     <div>
       <textarea className="CI__new__journal__textarea" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
-      <div className="App__button" onClick={() => { this.toggleNewJournal(); newJournal( {text: inputJournalText, character_id: character_id}, character_id) } }>
+      <div className="App__button" onClick={() => { toggleNewJournal(); newJournal( {text: inputJournalText, character_id: character_id}, character_id) } }>
         Save
       </div>
-      <div className="App__button" onClick={() => this.toggleNewJournal()}>
+      <div className="App__button" onClick={() => toggleNewJournal()}>
         Cancel
       </div>
     </div>

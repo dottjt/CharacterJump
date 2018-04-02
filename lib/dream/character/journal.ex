@@ -7,9 +7,11 @@ defmodule Dream.Character.Journal do
   @foreign_key_type :binary_id
   schema "journals" do
     field :text, :string
+    field :type, :string
     # field :character_id, :binary_id
 
-    belongs_to :character, Dream.Core.Character
+    has_many :characters, Dream.Day.Character
+    # belongs_to :character, Dream.Core.Character
 
     timestamps()
   end
@@ -17,8 +19,8 @@ defmodule Dream.Character.Journal do
   @doc false
   def changeset(journal, attrs) do
     journal
-    |> cast(attrs, [:text])
-    |> validate_required([:text])
+    |> cast(attrs, [:text, :type])
+    |> validate_required([:text, :type])
   end
 
   def new_changeset(journal, attrs) do

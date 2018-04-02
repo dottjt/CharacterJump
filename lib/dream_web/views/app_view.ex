@@ -1,20 +1,29 @@
 defmodule DreamWeb.AppView do
   use DreamWeb, :view
 
-  def render("initial_state.json", %{timeline: timeline, characters: characters, traits: traits, narratives: narratives, journals: journals}) do
+  def render("initial_state.json", %{timeline: timeline, characters: characters, traits: traits, narratives: narratives, journals: journals, user: user}) do
     %{timeline: render_many(timeline, DreamWeb.AppView, "timeline.json", as: :timeline),
       characters: render_many(characters, DreamWeb.AppView, "character_assoc.json", as: :character_assoc),
       narratives: render_many(narratives, DreamWeb.AppView, "narrative.json", as: :narrative),
+      journals: render_many(journals, DreamWeb.AppView, "journal.json", as: :journal),   
       traits: render_many(traits, DreamWeb.AppView, "trait.json", as: :trait),
-      journals: render_many(journals, DreamWeb.AppView, "journal.json", as: :journal)    
+      user: render_one(user, DreamWeb.AppView, "user.json", as: :user)
     }
+  end
 
+  def render("user.json", %{user: user}) do
+    %{ email: user.email,
+       name: user.name,
+       inserted_at: user.inserted_at,
+       current_sign_in_at: user.current_sign_in_at,
+       last_sign_in_at: user.last_sign_in_at}
   end
 
   def render("timeline.json", %{timeline: timeline}) do
     %{id: timeline.id,
       inserted_at: timeline.inserted_at,
-      characters: render_many(timeline.characters, DreamWeb.AppView, "character.json", as: :character)}
+      characters: render_many(timeline.characters, DreamWeb.AppView, "character.json", as: :character),
+      narratives: render_many(timeline.narratives, DreamWeb.AppView, "narrative.json", as: :narrative)}
   end
 
   def render("character.json", %{character: character}) do
@@ -22,7 +31,10 @@ defmodule DreamWeb.AppView do
       secondary_id: character.secondary_id,
       name: character.name,
       display_name: character.display_name,
-      selected: character.selected}
+      selected: character.selected,
+      journal_id: character.journal_id,
+      narrative_id: character.narrative_id
+    }
   end
 
   def render("character_assoc.json", %{character_assoc: character_assoc}) do
@@ -33,11 +45,12 @@ defmodule DreamWeb.AppView do
       selected: character_assoc.selected,
 
       traits: render_many(character_assoc.traits, DreamWeb.AppView, "trait.json", as: :trait),
-      journals: render_many(character_assoc.journals, DreamWeb.AppView, "journal.json", as: :journal),
-      additional_descriptions: render_many(character_assoc.additional_descriptions, DreamWeb.AppView, "additional_description.json", as: :additional_description),
-      narratives: render_many(character_assoc.narratives, DreamWeb.AppView, "narrative.json", as: :narrative),
-      
       description: render_one(character_assoc.description, DreamWeb.AppView, "description.json", as: :description)}
+      # additional_descriptions: render_many(character_assoc.additional_descriptions, DreamWeb.AppView, "additional_description.json", as: :additional_description),
+
+      # journals: render_many(character_assoc.journals, DreamWeb.AppView, "journal.json", as: :journal),
+      # narratives: render_many(character_assoc.narratives, DreamWeb.AppView, "narrative.json", as: :narrative),
+      
       # character_before: render_one(character_assoc.character_before, DreamWeb.AppView, "character.json", as: :character),
       # character_after: render_one(character_assoc.character_after, DreamWeb.AppView, "character.json", as: :character)}
   end

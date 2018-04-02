@@ -10,6 +10,7 @@ defmodule Dream.Core.Day do
     field :name, :string
 
     has_many :characters, Dream.Core.Character
+    has_many :narratives, Dream.Character.Narrative
 
     timestamps()
   end

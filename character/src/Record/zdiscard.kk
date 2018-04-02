@@ -40,7 +40,7 @@ class Record extends Component {
 
   render() {
 
-    let { chooseCharacter, 
+    let { chooseCharacters, 
           selectedCharacters, 
           chooseNarratives, 
           selectedNarratives } = this.props.state.reducer;
@@ -179,7 +179,7 @@ class Record extends Component {
                       </div>
                     }
 
-                    {chooseCharacter.map(selectionCharacter => (
+                    {chooseCharacters.map(selectionCharacter => (
                       <div className="MRC-selected" key={selectionCharacter.id} onClick={() => selectNarrativeCharacter(selectionCharacter)}>
                         <h4>
                           {selectionCharacter.display_name}

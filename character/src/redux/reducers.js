@@ -1,4 +1,4 @@
-import { categories, traits } from './state';
+import { categories, journalCategories, progressBar } from './state';
 import { LOCATION_CHANGE } from 'react-router-redux'
 
 let initialState = {
@@ -8,7 +8,10 @@ let initialState = {
   traits: [],
   journals: [],
   narratives: [],
+
   categories: categories,
+  journalCategories: journalCategories,
+  progressBar: progressBar,
 
   // EDIT/NEW
   setCharacter: {},
@@ -34,10 +37,9 @@ let initialState = {
 
   characterRelations: [],
   selectedCharacters: [],
-  chooseCharacter: [],
+  chooseCharacters: [],
 
   selectedTraits: [],
-  selectedCategory: {display_name: "all"}
 }
 
 
@@ -50,7 +52,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         characters: action.data.characters, 
-        chooseCharacter: action.data.characters,
+        chooseCharacters: action.data.characters,
 
         narratives: action.data.narratives,
         chooseNarratives: action.data.narratives, 
@@ -116,6 +118,15 @@ function reducer(state = initialState, action) {
         inputAdditionalText: action.text
       }
 
+      
+    // Timeline
+
+    case 'SET_TIMELINE_SUCCESS':
+      return {
+        ...state,
+        setTimeline: state.timeline.filter(timeline => timeline.id == action.timeline_id)[0]
+      }
+
 
     // Journal
 
@@ -124,6 +135,14 @@ function reducer(state = initialState, action) {
         ...state,
         setJournal: state.journals.filter(journal => journal.id == action.journal_id)[0]
       }
+
+
+    case 'SELECT_JOURNAL_CATEGORY_SUCCESS':
+      return {
+        ...state,
+        journalCategories: state.journalCategories.map(category => category.selected || category.type === action.category.type ? {...category, selected: !category.selected} : category)
+      }
+
 
 
     // MRC - Record 
@@ -144,27 +163,27 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         selectedCharacters: state.selectedCharacters.concat(action.character),
-        chooseCharacter: state.chooseCharacter.filter(char => char.id !== action.character.id)
+        chooseCharacters: state.chooseCharacters.filter(char => char.id !== action.character.id)
       }
     
     case 'UNSELECT_CHARACTER_SUCCESS':
       return {
         ...state,
         selectedCharacters: state.selectedCharacters.filter(char => char.id !== action.character.id),
-        chooseCharacter: state.chooseCharacter.concat(action.character)
+        chooseCharacters: state.chooseCharacters.concat(action.character)
       }
     
 
     case 'SELECT_NARRATIVE_CHARACTER_SUCCESS': 
       return {
         ...state,
-        chooseCharacter: state.chooseCharacter.map(char => char.selected === false && char.id === action.character_id ? { ...char, selected: true } : char )
+        chooseCharacters: state.chooseCharacters.map(char => char.selected === false && char.id === action.character_id ? { ...char, selected: true } : char )
       }
     
     case 'UNSELECT_NARRATIVE_CHARACTER_SUCCESS':
       return {
         ...state,
-        chooseCharacter: state.chooseCharacter.map(char => char.selected === true && char.id === action.character_id ? { ...char, selected: false } : char )
+        chooseCharacters: state.chooseCharacters.map(char => char.selected === true && char.id === action.character_id ? { ...char, selected: false } : char )
       }
     
       
@@ -183,14 +202,14 @@ function reducer(state = initialState, action) {
         chooseNarratives: state.chooseNarratives.concat(action.narrative)
       }
 
-
+      
 
     // MNCTP - NewCharacterTraitPicker
 
     case 'SELECT_CATEGORY_SUCCESS':
       return {
         ...state,
-        selectedCategory: action.category
+        categories: state.categories.map(category => category.selected || category.display_name === action.category.display_name ? {...category, selected: !category.selected} : category)
       }
 
     case 'SELECT_TRAIT_SUCCESS':
@@ -205,7 +224,7 @@ function reducer(state = initialState, action) {
       return {
         ...state,
         selectedTraits: state.selectedTraits.filter(trait => trait.id !== action.id),
-        traits: state.traits.map(trait => trait.id === action.trait.id ? {...trait, selected: false } : trait )
+        traits: state.traits.map(trait => trait.id === action.id ? {...trait, selected: false } : trait )
       }
 
 
@@ -293,22 +312,21 @@ function reducer(state = initialState, action) {
 
       if(state.characters.length > 0) {
         let path = action.payload.pathname.split("/");
-        console.log(path);
         
-        if(path[1] === "record" && path.length === 1) {
+        if(path[2] === "record" && path.length === 2) {
           return {
             ...state, 
             inputDisplayName: ""
           }
         }
 
-        if(path[1] === "journals" && path.length > 2) {
+        if(path[2] === "journals" && path.length > 3) {
 
-          let journal_id = path[2].split("-")[0];
+          let journal_id = path[3].split("-")[0];
           let setJournal = state.journals.filter(journal => journal.id == journal_id)[0];
 
           // new
-          if(path[3] === "new") {
+          if(path[4] === "new") {
             return {
               ...state, inputJournalText: ""
             }    
@@ -321,12 +339,12 @@ function reducer(state = initialState, action) {
           }
         }
 
-        if(path[1] === "characters" && path.length > 2) {
+        if(path[2] === "characters" && path.length > 3) {
 
-          let secondary_id = path[2].split("-")[0];
+          let secondary_id = path[3].split("-")[0];
           let setCharacter = state.characters.filter(char => char.secondary_id == secondary_id)[0];
             
-          if(path[3] === "edit") {
+          if(path[4] === "edit") {
             return {
               ...state,
               setCharacter: setCharacter,
@@ -337,7 +355,7 @@ function reducer(state = initialState, action) {
             }  
           }
 
-          if(path[3] === "new") {
+          if(path[4] === "new") {
             return {
               ...state, inputDisplayName: "", inputDescription: "", selectedTraits: [], inputCharacterId: ""
             }    

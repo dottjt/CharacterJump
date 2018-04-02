@@ -14,7 +14,8 @@ defmodule DreamWeb.CharacterController do
   end
 
   def create(conn, %{"character" => character_params}) do
-    
+    IO.inspect character_params
+
     with {:ok, %Character{} = character} <- Core.create_character(character_params) do
       conn
       |> put_status(:created)

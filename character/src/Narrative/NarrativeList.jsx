@@ -17,7 +17,7 @@ class NarrativeList extends Component {
     return (
       <main>
 
-        <AppTitle title="Your Narratives"/>
+        <AppTitle title="Narratives"/>
         <List narratives={store.narratives}/>
         
       </main>
@@ -29,7 +29,7 @@ let List = ({narratives}) => (
     narratives
   ?
     narratives.map(narrative => (
-      <Individual text={narrative.text}/>
+      <Individual key={narrative.id} text={narrative.text}/>
     ))
   :
     <div>You have no created any narratives.</div>

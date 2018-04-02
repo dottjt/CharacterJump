@@ -42,7 +42,10 @@ import {setCharacter,
         changeAdditionalDisplayName,
         changeAdditionalText,
 
+        setTimeline,
+        
         setJournal,
+        selectJournalCategory,
 
         pageForward,
         pageBackward,
@@ -94,28 +97,28 @@ class App extends Component {
             <Switch>
               <Route exact path="/dashboard" render={props => <Dashboard {...props} {...this.props}/>}/> 
 
-              <Route exact path="/characters" render={props => <CharacterList {...props} {...this.props}/>}/>
-              <Route       path="/characters/new" render={props => <CharacterNew {...props} {...this.props}/>}/>
+              <Route exact path="/dashboard/characters" render={props => <CharacterList {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/characters/new" render={props => <CharacterNew {...props} {...this.props}/>}/>
               
-              <Route exact path="/characters/:character_name" render={props => <CharacterIndividual {...props} {...this.props}/>}/>
-              <Route       path="/characters/:character_name/edit" render={props => <CharacterNew {...props} {...this.props}/>}/>
+              <Route exact path="/dashboard/characters/:character_name" render={props => <CharacterIndividual {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/characters/:character_name/edit" render={props => <CharacterNew {...props} {...this.props}/>}/>
 
-              <Route exact path="/journals" render={props => <JournalList {...props} {...this.props}/>}/>
-              <Route       path="/journals/new" render={props => <JournalNew {...props} {...this.props}/>}/>
-              <Route       path="/journals/:journal_name" render={props => <JournalIndividual {...props} {...this.props}/>}/>
+              <Route exact path="/dashboard/journals" render={props => <JournalList {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/journals/new" render={props => <JournalNew {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/journals/:journal_name" render={props => <JournalIndividual {...props} {...this.props}/>}/>
               
-              {/* <Route       path="/narratives" render={props => <NarrativeList {...props} {...this.props}/>}/>
-              <Route       path="/narratives/new" render={props => <NarrativeNew {...props} {...this.props}/>}/> */}
+              {/* <Route       path="/dashboard/narratives" render={props => <NarrativeList {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/narratives/new" render={props => <NarrativeNew {...props} {...this.props}/>}/> */}
 
-              {/* <Route       path="/record" render={props => <Record {...props} {...this.props}/>}/> */}
+              {/* <Route       path="/dashboard/record" render={props => <Record {...props} {...this.props}/>}/> */}
 
-              <Route exact path="/record" render={props => <RecordSlide1 {...props} {...this.props}/>}/>
-              <Route       path="/record/step-2" render={props => <RecordSlide2 {...props} {...this.props}/>}/>
-              <Route       path="/record/step-3" render={props => <RecordSlide3 {...props} {...this.props}/>}/>
-              <Route       path="/record/step-4" render={props => <RecordSlide4 {...props} {...this.props}/>}/>
+              <Route exact path="/dashboard/record" render={props => <RecordSlide1 {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/record/step-2" render={props => <RecordSlide2 {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/record/step-3" render={props => <RecordSlide3 {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/record/step-4" render={props => <RecordSlide4 {...props} {...this.props}/>}/>
               
-              <Route exact path="/timeline" render={props => <Timeline {...props} {...this.props}/>}/>
-              <Route       path="/timeline/:id" render={props => <TimelineIndividual {...props} {...this.props}/>}/>
+              <Route exact path="/dashboard/timeline" render={props => <Timeline {...props} {...this.props}/>}/>
+              <Route       path="/dashboard/timeline/:id" render={props => <TimelineIndividual {...props} {...this.props}/>}/>
 
               <Route render={props => <_404 {...props} {...this.props}/>} />
               
@@ -168,12 +171,21 @@ const mapDispatchToProps = dispatch => {
         dispatch(changeAdditionalText(text))
       },
 
-      // Journal
+      // Timeline
 
-      setJournal: (text) => {
-        dispatch(setJournal(text))
+      setTimeline: (timeline_id) => {
+        dispatch(setTimeline(timeline_id))
       },
 
+      // Journal
+
+      setJournal: (journal_id) => {
+        dispatch(setJournal(journal_id))
+      },
+
+      selectJournalCategory: (category) => {
+        dispatch(selectJournalCategory(category))
+      },
 
       // MRC - Record 
 

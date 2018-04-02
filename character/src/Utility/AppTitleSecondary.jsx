@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 let AppTitleSecondary = ({title}) => (
-  <h2 className="App__title-secondary">
+  <h2 className="App__title__secondary">
     {title}
   </h2>
 )

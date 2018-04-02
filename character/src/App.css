@@ -37,21 +37,67 @@ main {
   justify-content: center;
   align-items: center;
 
-  height: 10rem;
+  height: 8rem;
   margin-bottom: 4rem;
 
-  border: 1px solid black;
+  /* border: 1px solid black; */
+}
+
+.App__top__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column-reverse;
+  height: 6rem;
+}
+
+.App__top__tooltip {
+  opacity: 0;
+  color: #3131ff;
+
+  font-size: 14px;
+  /* border-bottom: 1px solid black; */
+
+  transition: .3s opacity;
+}
+
+.App__top__dashboard {
+  justify-content: space-around;
 }
 
 .App__button {
-  font-size: 1.2rem;
-
-  border: 1px solid black;
-  border-radius: 3px;
-
+  display: inline-block;
+  
+  font-size: 1.1rem;
   text-decoration: none;
 
-  padding: 1.2rem;
+  background: #3131ff;
+  color: white;
+  border: 1px solid white;
+
+  box-shadow: 1px 1px grey;
+
+  border-radius: 3px;
+  padding: 0.8rem;
+
+  transition: .2s background;
+  cursor: pointer;
+}
+
+.App__button:hover {
+  background: white;
+  color: #3131ff;
+  border: 1px solid #3131ff;
+}
+
+.App__button:hover ~ .App__top__tooltip {
+  opacity: 1;
+}
+
+.App__button__secondary {
+  color: #3131ff;
+  padding: 0.8rem;
+  text-decoration: none;
 }
 
 .App__title {
@@ -59,9 +105,16 @@ main {
   margin-bottom: 2.5rem;
 }
 
-.App__title-secondary {
-  font-size: 1.6rem;
+.App__title__secondary {
+  font-size: 1.2rem;
   margin-bottom: 1rem;
+
+  /* border: 1px solid #3131ff; */
+  border-radius: 3px;
+  
+  color: #3131ff;
+  /* padding: 1rem; */
+  display: inline-block;
 }
 
 .App__item {
@@ -90,6 +143,17 @@ main {
   align-items: flex-end;
 }
 
+.App__view__all {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.App__view__all__text {
+
+}
+
 
 
 
@@ -102,7 +166,6 @@ main {
 
   nav {
     display: block;
-    border: 1px solid black;
 
     grid-row: 4 / span 4;  
   }
@@ -112,5 +175,10 @@ main {
     grid-row: 3;
   }  
 }
+
+
+
+
+
 
 

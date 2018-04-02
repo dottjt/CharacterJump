@@ -18,8 +18,11 @@ defmodule Dream.Core.Character do
     belongs_to :day, Dream.Core.Day
 
     has_many :traits, Dream.Character.Trait
-    has_many :narratives, Dream.Character.Narrative    
-    has_many :journals, Dream.Character.Journal
+    # has_many :narratives, Dream.Character.Narrative    
+    # has_many :journals, Dream.Character.Journal
+    belongs_to :narrative, Dream.Character.Narrative
+    belongs_to :journal, Dream.Character.Journal
+    
     has_many :additional_descriptions, Dream.Character.AdditionalDescription
     
     has_one :description, Dream.Character.Description
@@ -43,9 +46,9 @@ defmodule Dream.Core.Character do
     |> put_change(:secondary_id, Helper.generate_secondary_id())
     |> cast_assoc(:description)
     |> cast_assoc(:traits)
-    |> cast_assoc(:narratives)
-    |> cast_assoc(:journals)
-    |> cast_assoc(:additional_descriptions)
+    # |> cast_assoc(:narratives)
+    # |> cast_assoc(:journals)
+    # |> cast_assoc(:additional_descriptions)
     |> validate_required([:display_name, :name, :secondary_id, :description, :traits])
   end
 
@@ -55,8 +58,8 @@ defmodule Dream.Core.Character do
     |> put_change(:name, Helper.display_name_convert(attrs["display_name"]))
     |> cast_assoc(:description)
     |> cast_assoc(:traits)
-    |> cast_assoc(:narratives)    
-    |> cast_assoc(:journals)
+    # |> cast_assoc(:narratives)    
+    # |> cast_assoc(:journals)
     |> cast_assoc(:additional_descriptions)
   end
 

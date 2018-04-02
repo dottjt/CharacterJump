@@ -8,7 +8,9 @@ defmodule Dream.Character.Narrative do
   schema "narratives" do
     field :text, :string
     # field :selected, :boolean, default: false
-    field :character_id, :binary_id
+    # field :character_id, :binary_id
+    
+    belongs_to :day, Dream.Core.Day
 
     timestamps()
   end

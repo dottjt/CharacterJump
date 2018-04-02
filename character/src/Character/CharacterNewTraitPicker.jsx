@@ -23,7 +23,7 @@ class CharacterNewTraitPicker extends Component {
 
         <div className="CNTP__filters">
           <Search/>
-          <CategoryBar categories={store.categories} selectedCategory={store.selectedCategory} selectCategory={actions.selectCategory}/>
+          <CategoryBar categories={store.categories} selectCategory={actions.selectCategory}/>
         </div> 
         
         <TraitSelection traits={store.traits} selectTrait={actions.selectTrait}/>
@@ -39,9 +39,10 @@ let SelectedTraits = ({selectedTraits, removeTrait}) => (
       selectedTraits.length > 0
     ?
       selectedTraits.map(trait => (
-        <SelectedTrait trait_id={trait.id}
-                       display_name={trait.display_name}
-                       removeTrait={removeTrait}/> 
+        <SelectedTrait  id={trait.id}
+                        key={trait.id}
+                        display_name={trait.display_name}
+                        removeTrait={removeTrait}/> 
       ))
     :
       <p>No traits selected</p>  
@@ -49,10 +50,10 @@ let SelectedTraits = ({selectedTraits, removeTrait}) => (
   </div>
 )
 
-let SelectedTrait = ({trait_id, display_name, removeTrait}) => (
-  <div className="CNTP__selected__trait" key={trait_id}>
+let SelectedTrait = ({id, key, display_name, removeTrait}) => (
+  <div className="CNTP__selected__trait" key={id}>
     <p>{display_name}</p>
-    <div onClick={() => removeTrait(trait_id)}>-</div>
+    <div onClick={() => removeTrait(id)}>-</div>
   </div>
 )
 
@@ -62,33 +63,23 @@ let Search = () => (
   </div>
 )
 
-let CategoryBar = ({categories, selectedCategory, selectCategory}) => (
+let CategoryBar = ({categories, selectCategory}) => (
   <div className="CNTP__categories">
-    {
-      categories.length > 0
-    ? 
-      categories.map(category => (
-        <Category selected_category_id={selectedCategory.id}
-                  category={category}
-                  selectCategory={selectCategory} />
+    {categories.map(category => (
+      <Category key={category.display_name}
+                category={category}
+                selectCategory={selectCategory} />
       ))
-    :
-      <p>No categories selected</p>
     }
   </div>
 )
 
-let Category = ({selected_category_id, category, selectCategory}) => (
-  category.id == selected_category_id
-  ?
-    <div className="CNTP__category CNTP__category__selected" key={category.id} onClick={() => selectCategory(category)}>
-      {category.display_name}
-    </div>
-  :
-    <div className="CNTP__category" key={category.id} onClick={() => selectCategory(category)}>
-      {category.display_name}
-    </div>
+let Category = ({key, category, selectCategory}) => (
+  <div key={key} className={`CNTP__category ${category.selected ? "CNTP__category__selected" : ""}`} onClick={() => selectCategory(category)}>
+    {category.display_name}
+  </div>
 )
+
 
 let TraitSelection = ({traits, selectTrait}) => (
   <div className="CNTP__traits">
@@ -96,7 +87,7 @@ let TraitSelection = ({traits, selectTrait}) => (
       traits.length > 0
     ?
       traits.map((trait) => (
-        <TraitSelect trait={trait} selectTrait={selectTrait}/>
+        <TraitSelect key={trait.id} trait={trait} selectTrait={selectTrait}/>
       ))
     :
       ""
@@ -104,12 +95,12 @@ let TraitSelection = ({traits, selectTrait}) => (
   </div>
 )
 
-let TraitSelect = ({trait, selectTrait}) => (
+let TraitSelect = ({key, trait, selectTrait}) => (
     trait.selected
   ?
     ""
   :
-    <div className="CNTP__trait" key={trait.id} onClick={() => selectTrait(trait)}>
+    <div className="CNTP__trait" key={key} onClick={() => selectTrait(trait)}>
       {trait.display_name}
     </div>
 )

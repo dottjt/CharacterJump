@@ -8,7 +8,7 @@ defmodule DreamWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
-    plug Coherence.Authentication.Session 
+    plug Coherence.Authentication.Session
   end
 
   pipeline :protected do
@@ -40,9 +40,8 @@ defmodule DreamWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
-    get "/test-app", PageController, :test_app
-    # get "/guides"
-
+    get "/guides", PageController, :guides    
+    get "/community", PageController, :community
 
   end
 
@@ -65,7 +64,11 @@ defmodule DreamWeb.Router do
   scope "/dashboard", DreamWeb do 
     pipe_through :protected
 
-    get ":any", AppController, :app
+    get "/", PageController, :dashboard
+    get "/:any", PageController, :dashboard
+    get "/:any/:any", PageController, :dashboard
+    get "/:any/:any/:any", PageController, :dashboard
+
   end
 
 end

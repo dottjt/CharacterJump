@@ -19,8 +19,8 @@ class JournalList extends Component {
     return (
       <main>
  
-        <AppTitle title="Your Journals"/>
-        <AppTop title="New Journal" link="/journal/new"/>
+        <AppTitle title="Journals"/>
+        <AppTop title="New Journal" tooltip="Write about something." link="/dashboard/journals/new"/>
         
         <List journals={store.journals}/>
 
@@ -35,7 +35,7 @@ let List = ({journals}) => (
       journals
     ?
       journals.map(journal => (
-        <Journal journal={journal}/>
+        <Journal key={journal.id} journal={journal}/>
       ))
     :
       <div>You have not created any journals.</div>
@@ -43,16 +43,16 @@ let List = ({journals}) => (
   </div>        
 )
 
-let Journal = ({journal}) => (
-  <div className="App__item" key={journal.id}>
+let Journal = ({key, journal}) => (
+  <div className="App__item" key={key}>
   
     <div className="App__item__top">
       <div className="App__item__top__left">
         <AppTitleSecondary title={journal.inserted_at}/>
       </div>
 
-      <Link to={`/journals/${journal.inserted_at}`}>
-        view.
+      <Link className="App__button__secondary" to={`/dashboard/journals/${journal.inserted_at}`}>
+        view
       </Link>
     </div>
 

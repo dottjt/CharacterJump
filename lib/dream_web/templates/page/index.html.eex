@@ -1,36 +1,75 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-</div>
+<div class="homepage">
+  <div class="hero">
+    
+    <div class="hero__left">
+      <h1>An intuitive mental health framework.</h1>
+    </div>
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
+    <div class="hero__right">
+      <a class="btn-green" href="">sign up</a>
+      <a class="btn-blue" href="">login</a>
+      <!-- <a class="btn-grey" href="/community">community</a> -->
+      <!-- <a class="btn-yellow" href="/guides">guides</a> -->
+    </div>
+
   </div>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+  <div class="slide">
+    <h2>What is it?</h2>
+    <p>Mental health software.</p>
+    <p>An online single page application that takes a unique approach towards developing self-awareness.</p>
+    <p>It is intended to be used on a daily basis to identify your character 'archtypes' amongst other things.</p>
+    <!-- <p>It is available for your <span class="important">browser</span>, as well as natively for <span class="important">Android</span> and <span class="important">iPhone</span>. -->
   </div>
+
+  <div class="slide">
+    <h2>Who is it for?</h2>
+    <p>Individuals struggling with their mental health.</p>
+    <p>This typically includes ambitious professionals, as well as those obsessed with self-improvement.</p>
+    <p>You can learn more about our system within the guides section.</p>
+    <a class="btn-yellow" href="">guides</a>    
+  </div>
+
+  <div class="slide">
+    <h2>Why is it relevant?</h2>
+    <p>It addresses the major limitations of most mental health frameworks and approaches in a way that is on-going and sustainable.</p>
+    <p>I was sick of the unwavering dilation between depression and enlightenment with existing approaches.</p>
+    <p>I required a more substantial solution that would allow me to overcome the limitations of human memory.</p>
+    <a class="btn-red" href="">existing approaches</a>
+  </div>
+
+  <div class="slide">
+    <h2>How does it work?</h2>
+    <p>It leverages the power of technology to put in you a position of being able to assess your mental health.</p>
+    <p>The way it does does this is by helping you keep track of the character 'archtypes' that we tend to play on a daily basis.</p>
+    <p>With this knowledge we can discover patterns in our thoughts, as well as prevent repeat habits.</p>
+    <p>It is particularly helpful with overcoming addiction etc.</p>
+    <a class="btn-red" href="">our approach</a>        
+  </div>
+
+  <div class="slide">
+    <h2>How much does it cost?</h2>
+    <p>The software is free.</p>
+    <p>However, there is the option to pay for self-awareness exercises and teachings that are inessential to the core functionality and purpose of the program.</p>
+  </div>
+  
+  <!-- <div class="slide">
+    <h2>What does it look like?</h2>
+    <a class="btn-red" href="">see here</a>
+  </div> -->
+
+  <div class="slide">
+    <h2>Interested?</h2>
+    <p>Sign up for an account and we'll help ease you into the world of self-awareness</p>
+    <!-- <p>Alternatively you can download the Android or iPhone application to your phone</p> -->
+    <a class="btn-green" href="">sign up</a>    
+  </div>
+<!--     
+  <div class="slide">
+    <h2>Still a little bit confused?</h2>
+    <p>Check out our guides section which better explains the theory behind the application.</p>
+    
+    <a class="btn-red" href="">see here</a>
+  </div> -->
+
 </div>

@@ -19,7 +19,7 @@ class RecordSlide2 extends Component {
     let store = this.props.state.reducer;
     let actions = this.props.actions;
 
-    let characterCollection = store.chooseCharacter.filter((character) => character.selected === true)
+    let characterCollection = store.chooseCharacters.filter((character) => character.selected === true)
 
     return (
       <main> 
@@ -33,14 +33,14 @@ class RecordSlide2 extends Component {
           <NarrativeList  selectedNarratives={store.selectedNarratives} 
                           selectNarrativeCharacter={actions.selectNarrativeCharacter}
                           unselectNarrativeCharacter={actions.unselectNarrativeCharacter}
-                          chooseCharacter={store.chooseCharacter}
+                          chooseCharacters={store.chooseCharacters}
                           newCharacter={actions.newCharacter}/>
 
         </div>
 
         <div className="RS__bottom">
-          <PageLink text="previous page" link="/record" clickFunction={() => actions.pageBackward()}/>
-          <NextPage text="next page" link="/record/step-3" collection={characterCollection} clickFunction={() => actions.pageForward()}/>
+          <PageLink text="previous page" link="/dashboard/record" clickFunction={() => actions.pageBackward()}/>
+          <NextPage text="next page" link="/dashboard/record/step-3" collection={characterCollection} clickFunction={() => actions.pageForward()}/>
         </div>
 
       </main>
@@ -48,12 +48,13 @@ class RecordSlide2 extends Component {
   }
 }
 
-let NarrativeList = ({selectedNarratives, newCharacter, chooseCharacter, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
+let NarrativeList = ({selectedNarratives, newCharacter, chooseCharacters, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
   <div className="RS__selected__narrative__list">
     {selectedNarratives.map(narrative => (
-      <NarrativeIndividual  narrative={narrative} 
+      <NarrativeIndividual  key={narrative.id}
+                            narrative={narrative} 
                             newCharacter={newCharacter} 
-                            chooseCharacter={chooseCharacter} 
+                            chooseCharacters={chooseCharacters} 
                             selectNarrativeCharacter={selectNarrativeCharacter}
                             unselectNarrativeCharacter={unselectNarrativeCharacter}/>
     ))
@@ -61,8 +62,8 @@ let NarrativeList = ({selectedNarratives, newCharacter, chooseCharacter, selectN
   </div>  
 )
 
-let NarrativeIndividual = ({narrative, newCharacter, chooseCharacter, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
-  <div className="RS__selected__narrative" key={narrative.id}>
+let NarrativeIndividual = ({key, narrative, newCharacter, chooseCharacters, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
+  <div className="RS__selected__narrative" key={key}>
 
     <div className="RS__narrative">
       <AppText className="RS__narrative__text" text={narrative.text}/>
@@ -71,17 +72,17 @@ let NarrativeIndividual = ({narrative, newCharacter, chooseCharacter, selectNarr
     <CharacterList newCharacter={newCharacter}
                    selectNarrativeCharacter={selectNarrativeCharacter}
                    unselectNarrativeCharacter={unselectNarrativeCharacter}
-                   chooseCharacter={chooseCharacter}/>
+                   chooseCharacters={chooseCharacters}/>
   </div>            
 )
 
-let CharacterList = ({newCharacter, chooseCharacter, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
+let CharacterList = ({newCharacter, chooseCharacters, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
   <div className="RS__character__list">
     <NewCharacter newCharacter={newCharacter}/>
 
     <ChooseCharacter selectNarrativeCharacter={selectNarrativeCharacter}
                      unselectNarrativeCharacter={unselectNarrativeCharacter}
-                     chooseCharacter={chooseCharacter}/>
+                     chooseCharacters={chooseCharacters}/>
   </div>
 )
 
@@ -92,8 +93,8 @@ let NewCharacter = ({newCharacter}) => (
     </div>
 )
 
-let ChooseCharacter = ({chooseCharacter, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
-  chooseCharacter.map(selectionCharacter => (
+let ChooseCharacter = ({chooseCharacters, selectNarrativeCharacter, unselectNarrativeCharacter}) => (
+  chooseCharacters.map(selectionCharacter => (
       selectionCharacter.selected === false 
     ?
       <div className="RS__character" key={selectionCharacter.id} onClick={() => selectNarrativeCharacter(selectionCharacter, selectionCharacter.id)}>

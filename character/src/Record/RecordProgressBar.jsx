@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 class RecordProgressBar extends Component {
 
   render() {
+
+    let store = this.props.state.reducer;
+
     return (
       <ul className="MRC-progression-bar">
         {this.state.progressBar.map(progress => (

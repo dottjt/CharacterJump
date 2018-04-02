@@ -12,9 +12,14 @@ import {setCharacterSaga,
         changeAdditionalDisplayNameSaga,
         changeAdditionalTextSaga,
         
+        // Timeline
+
+        setTimelineSaga,
+
         // Journal
 
         setJournalSaga,
+        selectJournalCategorySaga,
 
         // MRC - Record
         pageForwardSaga,
@@ -76,9 +81,14 @@ export default function* rootSaga() {
     takeLatest('CHANGE_NEW_ADDITIONAL_DISPLAY_NAME', changeAdditionalDisplayNameSaga),
     takeLatest('CHANGE_NEW_ADDITIONAL_TEXT', changeAdditionalTextSaga),
 
+    // Timeline
+
+    takeLatest('SET_TIMELINE', setTimelineSaga),
+
     // Journal
 
     takeLatest('SET_JOURNAL', setJournalSaga),
+    takeLatest('SELECT_JOURNAL_CATEGORY', selectJournalCategorySaga),
 
     // MRC - Record
 

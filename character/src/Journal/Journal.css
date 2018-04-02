@@ -1,3 +1,21 @@
+.JN {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .JN__input {
-  
+  width: 100%;
+}
+
+.JN__categories {
+  display: flex;
+}
+
+.JN__category {
+
+}
+
+.JN__category__selected {
+  border: 1px solid black;
 }

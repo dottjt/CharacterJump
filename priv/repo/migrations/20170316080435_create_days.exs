@@ -7,6 +7,8 @@ defmodule Dream.Repo.Migrations.CreateDays do
       add :name, :string
       add :display_name, :string
 
+      # add :day_id, references(:days, on_delete: :nothing, type: :binary_id)
+
       timestamps()
     end
 
