@@ -40,8 +40,17 @@ defmodule DreamWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
+
     get "/guides", PageController, :guides    
-    get "/community", PageController, :community
+    get "/guides/introduction", PageController, :guides_introduction    
+    get "/guides/existing-approaches", PageController, :guides_existing_approaches
+    get "/guides/our-approach", PageController, :guides_our_approach
+    get "/guides/understanding-characters", PageController, :guides_understanding_characters
+    get "/guides/identifying-characters", PageController, :guides_identifying_characters
+    get "/guides/example-characters", PageController, :guides_example_characters
+    get "/guides/external-resources", PageController, :guides_external_resources
+    
+    # get "/community", PageController, :community
 
   end
 

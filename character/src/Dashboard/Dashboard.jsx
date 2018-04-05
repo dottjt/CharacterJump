@@ -32,7 +32,7 @@ class Dashboard extends Component {
         <CharacterList characters={store.characters}/>
         <ViewAll title="View characters" link="/dashboard/characters"/>
         
-        <Menu/>
+        {/* <Menu/> */}
 
       </main>
     );

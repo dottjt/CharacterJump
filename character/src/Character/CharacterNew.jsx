@@ -98,12 +98,12 @@ let InputFields = ({inputDisplayName, inputDescription, changeDisplayName, chang
     
     <div className="CN__field">
       <AppTitleSecondary title="Name"/>
-      <input className="CN__name__input" value={inputDisplayName} onChange={e => changeDisplayName(e.target.value)} type="text"/>
+      <input className="App__input CN__name__input" value={inputDisplayName} onChange={e => changeDisplayName(e.target.value)} type="text"/>
     </div>
 
     <div className="CN__field">
       <AppTitleSecondary title="Description"/>
-      <textarea className="CN__description__input" value={inputDescription} onChange={e => changeDescription(e.target.value)} type="text"/>
+      <textarea className="App__textarea" value={inputDescription} onChange={e => changeDescription(e.target.value)} type="text"/>
     </div>
 
   </div>

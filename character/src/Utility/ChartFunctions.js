@@ -119,6 +119,7 @@ export let generateChartOptions = () => (
              stacked: true
          }]
      },
-    // maintainAspectRatio: false
+     responsive: true,
+    //  maintainAspectRatio: true
  }
 )

@@ -64,9 +64,6 @@
   flex-direction: column;
 }
 
-.CI__new__journal__textarea {
-  width: 100%;
-}
 
 .CI__overlay {
   position: fixed;
@@ -93,12 +90,13 @@
 
 .CL__traits {
   display: flex;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .CL__trait {
   display: inline-block;
   padding-right: 1rem;
+  font-size: 0.8rem;
 }
 
 
@@ -114,22 +112,6 @@
   margin-bottom: 1rem;
 }
 
-.CN__name__input {
-  padding: 0.5rem;
-
-  width: 100%;
-  
-  font-size: 1.6rem;
-}
-
-.CN__description__input {
-  height: 6rem;
-  width: 100%;
-
-  padding: 0.5rem;
-  
-  font-size: 1.1rem;
-}
 
 .CN__save__container {
   margin-top: 1.5rem;

@@ -21,12 +21,14 @@ class CharacterNewTraitPicker extends Component {
         <AppTitleSecondary title="Traits"/>
         <SelectedTraits selectedTraits={store.selectedTraits} removeTrait={actions.removeTrait}/>
 
-        <div className="CNTP__filters">
+        {/* <div className="CNTP__filters">
           <Search/>
           <CategoryBar categories={store.categories} selectCategory={actions.selectCategory}/>
-        </div> 
+        </div>  */}
         
-        <TraitSelection traits={store.traits} selectTrait={actions.selectTrait}/>
+        {/* <TraitSelection traits={store.traits} selectTrait={actions.selectTrait}/> */}
+
+        <TraitSelectionTwo traits={store.traits} selectTrait={actions.selectTrait}/>
 
       </div>
     );
@@ -57,53 +59,59 @@ let SelectedTrait = ({id, key, display_name, removeTrait}) => (
   </div>
 )
 
-let Search = () => (
-  <div className="CNTP__search">
-    <input className="CNTP__search__input" type="text" placeholder="search"/>
+let TraitSelectionTwo = ({traits, selectTrait}) => (
+  <div>
+    
   </div>
 )
 
-let CategoryBar = ({categories, selectCategory}) => (
-  <div className="CNTP__categories">
-    {categories.map(category => (
-      <Category key={category.display_name}
-                category={category}
-                selectCategory={selectCategory} />
-      ))
-    }
-  </div>
-)
+// let Search = () => (
+//   <div className="CNTP__search">
+//     <input className="App__input CNTP__search__input" type="text" placeholder="search"/>
+//   </div>
+// )
 
-let Category = ({key, category, selectCategory}) => (
-  <div key={key} className={`CNTP__category ${category.selected ? "CNTP__category__selected" : ""}`} onClick={() => selectCategory(category)}>
-    {category.display_name}
-  </div>
-)
+// let CategoryBar = ({categories, selectCategory}) => (
+//   <div className="CNTP__categories">
+//     {categories.map(category => (
+//       <Category key={category.display_name}
+//                 category={category}
+//                 selectCategory={selectCategory} />
+//       ))
+//     }
+//   </div>
+// )
+
+// let Category = ({key, category, selectCategory}) => (
+//   <div key={key} className={`CNTP__category ${category.selected ? "CNTP__category__selected" : ""}`} onClick={() => selectCategory(category)}>
+//     {category.display_name}
+//   </div>
+// )
 
 
-let TraitSelection = ({traits, selectTrait}) => (
-  <div className="CNTP__traits">
-    {
-      traits.length > 0
-    ?
-      traits.map((trait) => (
-        <TraitSelect key={trait.id} trait={trait} selectTrait={selectTrait}/>
-      ))
-    :
-      ""
-    }
-  </div>
-)
+// let TraitSelection = ({traits, selectTrait}) => (
+//   <div className="CNTP__traits">
+//     {
+//       traits.length > 0
+//     ?
+//       traits.map((trait) => (
+//         <TraitSelect key={trait.id} trait={trait} selectTrait={selectTrait}/>
+//       ))
+//     :
+//       ""
+//     }
+//   </div>
+// )
 
-let TraitSelect = ({key, trait, selectTrait}) => (
-    trait.selected
-  ?
-    ""
-  :
-    <div className="CNTP__trait" key={key} onClick={() => selectTrait(trait)}>
-      {trait.display_name}
-    </div>
-)
+// let TraitSelect = ({key, trait, selectTrait}) => (
+//     trait.selected
+//   ?
+//     ""
+//   :
+//     <div className="CNTP__trait" key={key} onClick={() => selectTrait(trait)}>
+//       {trait.display_name}
+//     </div>
+// )
 
 export default CharacterNewTraitPicker;
 

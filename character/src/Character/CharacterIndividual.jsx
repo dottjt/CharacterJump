@@ -250,7 +250,7 @@ let NewJournal = ({character_id, inputJournalText, changeJournalText, newJournal
     newJournalToggle
   ?
     <div>
-      <textarea className="CI__new__journal__textarea" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
+      <textarea className="App__textarea" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
       <div className="App__button" onClick={() => { toggleNewJournal(); newJournal( {text: inputJournalText, character_id: character_id}, character_id) } }>
         Save
       </div>

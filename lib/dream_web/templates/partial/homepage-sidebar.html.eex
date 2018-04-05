@@ -1,0 +1,8 @@
+<div class="homepage__sidebar">
+  <div class="homepage__logo">
+    <img src="" alt="">
+    Character Jump
+  </div>
+
+  <%= render DreamWeb.RegistrationView, "new.html", key: key %>
+</div>

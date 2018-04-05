@@ -19,8 +19,11 @@ class CharacterList extends Component {
     return (
       <main>
 
-        <AppTitle title="Characters"/>
-        <AppTop title="New Character" tooltip="Identify a new character." link="/dashboard/characters/new"/>
+        <div className="App__title__container">
+          <AppTitle title="Characters"/>
+          <AppTop title="New Character" tooltip="Identify a new character." link="/dashboard/characters/new"/>
+        </div>
+
         <List characters={store.characters} />
       
       </main>
@@ -31,7 +34,7 @@ class CharacterList extends Component {
 let List = ({characters}) => (
   <div className="App__items">
     {
-      characters
+      characters.length > 0
     ?
       characters.map(character => (
         <Individual key={character.id} character={character}/>
@@ -43,7 +46,7 @@ let List = ({characters}) => (
 )
 
 let Individual = ({key, character}) => (
-  <div className="App__item" key={key}>
+  <Link className="App__item" key={key} to={`/dashboard/characters/${character.secondary_id}-${character.name}`}>
 
     <CharacterTop name={character.name} 
                   display_name={character.display_name} 
@@ -51,7 +54,7 @@ let Individual = ({key, character}) => (
 
     <CharacterTraits traits={character.traits}/>
     <CharacterDescription description={character.description}/>
-  </div> 
+  </Link> 
 )
 
 let CharacterTop = ({name, display_name, secondary_id}) => (
@@ -60,9 +63,9 @@ let CharacterTop = ({name, display_name, secondary_id}) => (
       <AppTitleSecondary title={display_name}/>
       {/* <h5 className="App__item-frequency">Frequency:</h5> */}
     </div>
-    <Link className="App__button__secondary" to={`/dashboard/characters/${secondary_id}-${name}`}>
+    {/* <Link className="App__button__secondary" to={`/dashboard/characters/${secondary_id}-${name}`}>
       view
-    </Link> 
+    </Link>  */}
   </div>
 )
 

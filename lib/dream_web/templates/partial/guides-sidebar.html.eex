@@ -1,0 +1,21 @@
+<div class="guides__sidebar">
+  <div class="guides__sidebar__menu">
+
+    <p class="guides__sidebar__title">INTRODUCTION</p>
+
+    <a class="guides__sidebar__item" href="/guides"/>Preface</a>
+    <a class="guides__sidebar__item" href="/guides/existing-approaches"/>Existing Approaches</a>
+    <a class="guides__sidebar__item" href="/guides/our-approach"/>Our Approach</a>
+
+    <p class="guides__sidebar__title">CHARACTERS</p>
+    
+    <a class="guides__sidebar__item" href="/guides/understanding-characters">Understanding Characters</a>
+    <a class="guides__sidebar__item" href="/guides/example-characters">Identifying Characters</a>
+    <a class="guides__sidebar__item" href="/guides/creating-characters">Creating Characters</a>
+    <a class="guides__sidebar__item" href="/guides/eliminating-characters">Eliminating Characters</a>
+    <a class="guides__sidebar__item" href="/guides/tracking-characters">Tracking Characters</a>
+    <a class="guides__sidebar__item" href="/guides/end-game">End Game</a>
+    <a class="guides__sidebar__item" href="/guides/external-resources">External Resources</a>
+
+  </div>
+</div>

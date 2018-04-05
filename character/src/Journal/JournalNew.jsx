@@ -23,7 +23,6 @@ class JournalNew extends Component {
         <AppTitle title="New Journal"/>
 
         <div className="JN">
-          <AppTitleSecondary title="Journal Type"/>
         
           <SelectedTags journalCategories={store.journalCategories}
                         selectedCharacters={store.selectedCharacters}
@@ -44,9 +43,10 @@ class JournalNew extends Component {
           <InputFields  inputJournalText={store.inputJournalText}
                         changeJournalText={actions.changeJournalText}/>
                         
-          <div className="App__button" onClick={() => actions.newJournal( {text: store.inputJournalText}, "" ) }>
-            Save
-          </div>
+        </div>
+
+        <div className="App__button" onClick={() => actions.newJournal( {text: store.inputJournalText}, "" ) }>
+          Save
         </div>
 
       </main>
@@ -165,7 +165,7 @@ let NarrativeSelect = ({key, narrative, clickFunction}) => (
 
 
 let InputFields = ({inputJournalText, changeJournalText}) => (
-  <textarea className="JN__input" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
+  <textarea className="App__textarea" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
 )
 
 

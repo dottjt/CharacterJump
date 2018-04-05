@@ -1,10 +1,22 @@
+.Nav {
+  background: #373f52;
+  color: #d5dae6;
+  display: none;
 
-nav {
+  padding: 20px;
+}
+
+.Nav__logo {
+  color: white;
+
+  font-size: 1.4rem;
+}
+
+.Nav__list {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
 
-  list-style: none;
+  margin-top: 3rem;
 }
 
 .Nav__item {
@@ -12,17 +24,25 @@ nav {
   justify-content: flex-start;
   align-items: center;
 
-  padding-left: 4.5rem;
-  height: 3rem;
-  font-size: 1.2rem;
-
+  padding-left: 1rem;
+  height: 1.8rem;
+  font-size: 0.9rem;
+  font-weight: 100;
+  
   text-decoration: none;
+  text-transform: uppercase;
 
-  color: #3131ff;
+  color: white;
 
   transition: .3s opacity;
 }
 
 .Nav__item:hover {
   opacity: 0.6;
+}
+
+@media screen and (min-width: 767px) {
+  .Nav {
+    display: block;
+  }
 }

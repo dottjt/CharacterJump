@@ -6,9 +6,11 @@
 
   <body>
 
-    <%#= render_partial "header.html", assigns %>        
+    <%= render_partial "header.html", assigns %>        
     
-    <main role="main">      
+    <main role="main">
+      <%= render_partial "homepage-sidebar.html", assigns %>        
+      
       <%= render @view_module, @view_template, assigns %>
     </main>
 

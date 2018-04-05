@@ -41,7 +41,7 @@ class RecordSlide4 extends Component {
 
 let Journal = ({inputJournalText, changeJournalText}) => (
   <div class="RS__journal">
-    <textarea className="JN__input" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
+    <textarea className="App__textarea" value={inputJournalText} onChange={e => changeJournalText(e.target.value)} cols="30" rows="10"/>
   </div>
 )
 

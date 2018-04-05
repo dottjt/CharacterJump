@@ -2,74 +2,75 @@
   <div class="hero">
     
     <div class="hero__left">
-      <h1>An intuitive mental health framework.</h1>
+      <h1>An intuitive mental health strategy.</h1>
     </div>
 
     <div class="hero__right">
-      <a class="btn-green" href="">sign up</a>
-      <a class="btn-blue" href="">login</a>
-      <!-- <a class="btn-grey" href="/community">community</a> -->
-      <!-- <a class="btn-yellow" href="/guides">guides</a> -->
+      <a class="btn btn-green" href="/registrations/new">sign up</a>
+      <a class="btn btn-blue" href="/sessions/new">login</a>
+      <a class="btn btn-yellow" href="/guides">guides</a>          
     </div>
 
   </div>
 
   <div class="slide">
     <h2>What is it?</h2>
-    <p>Mental health software.</p>
-    <p>An online single page application that takes a unique approach towards developing self-awareness.</p>
-    <p>It is intended to be used on a daily basis to identify your character 'archtypes' amongst other things.</p>
-    <!-- <p>It is available for your <span class="important">browser</span>, as well as natively for <span class="important">Android</span> and <span class="important">iPhone</span>. -->
+    <p>An online application that takes a unique approach towards developing self-awareness.</p>
+    <p>It is based upon a detailed mental health strategy which essentially inspired the creation of this application.</p>
+    <p>The application is intended to be used on a daily basis, and it revolves around identifying the various characters in our lives.</p>
   </div>
 
   <div class="slide">
     <h2>Who is it for?</h2>
     <p>Individuals struggling with their mental health.</p>
     <p>This typically includes ambitious professionals, as well as those obsessed with self-improvement.</p>
-    <p>You can learn more about our system within the guides section.</p>
-    <a class="btn-yellow" href="">guides</a>    
+    <p>Trauma almost always usually plays a factor.</p>
   </div>
 
   <div class="slide">
     <h2>Why is it relevant?</h2>
-    <p>It addresses the major limitations of most mental health frameworks and approaches in a way that is on-going and sustainable.</p>
-    <p>I was sick of the unwavering dilation between depression and enlightenment with existing approaches.</p>
-    <p>I required a more substantial solution that would allow me to overcome the limitations of human memory.</p>
-    <a class="btn-red" href="">existing approaches</a>
+    <p>It addresses the major limitations of most mental health strategies, as well as works to their strengths.</p>
+    <ul>
+      <li>It focuses on being holistic rather than granular</li>
+      <li>It focuses on developing introspection from the beginning</li>
+      <li>It does not require pre-existing knowledge to be effective</li>
+      <li>It maintains a consistently low barrier of entry</li>
+      <li>It removes progression anxiety</li>      
+    </ul>
+    <a class="btn btn-red" href="/guides/our-approach">our approach</a>
   </div>
 
   <div class="slide">
     <h2>How does it work?</h2>
-    <p>It leverages the power of technology to put in you a position of being able to assess your mental health.</p>
-    <p>The way it does does this is by helping you keep track of the character 'archtypes' that we tend to play on a daily basis.</p>
+    <p>This strategy revolves around these things I call 'characters'.</p>
+    <p>Characters are the various personalities we play when we're angry, sad, irrational and everything else in-between.</p>
+    <p>The aim is to identify these characters and ultimately dissolve them.</p>
+    <p>Why? a) Because these characters are not real.</p>
+
+
+    <!-- <p>It leverages the power of technology to put in you a position of being able to assess your mental health.</p>
+    <p>The way it does does this is by helping you keep track of the <a class="link" href="">character archtypes</a> that we tend to play on a daily basis.</p>
     <p>With this knowledge we can discover patterns in our thoughts, as well as prevent repeat habits.</p>
-    <p>It is particularly helpful with overcoming addiction etc.</p>
-    <a class="btn-red" href="">our approach</a>        
+    <p>This is particularly helpful with overcoming addiction etc.</p> -->
+    <a class="btn btn-red" href="/guides/understanding-characters">understanding characters</a>        
   </div>
 
   <div class="slide">
     <h2>How much does it cost?</h2>
     <p>The software is free.</p>
-    <p>However, there is the option to pay for self-awareness exercises and teachings that are inessential to the core functionality and purpose of the program.</p>
+    <p>However, there is an option to pay for self-awareness exercises and teachings that are arguably inessential to the core purpose of the program.</p>
   </div>
-  
-  <!-- <div class="slide">
-    <h2>What does it look like?</h2>
-    <a class="btn-red" href="">see here</a>
-  </div> -->
+
+  <div class="slide">
+    <h2>Will it cure my depression?</h2>
+    <p>No.</p>
+    <p>However you may discover the reason why you have depression.</p>
+  </div>
 
   <div class="slide">
     <h2>Interested?</h2>
-    <p>Sign up for an account and we'll help ease you into the world of self-awareness</p>
-    <!-- <p>Alternatively you can download the Android or iPhone application to your phone</p> -->
-    <a class="btn-green" href="">sign up</a>    
+    <p>Sign up for an account and we'll help ease you into the wonderful world of self-awareness.</p>
+    <a class="btn btn-green" href="/registrations/new">sign up</a>    
   </div>
-<!--     
-  <div class="slide">
-    <h2>Still a little bit confused?</h2>
-    <p>Check out our guides section which better explains the theory behind the application.</p>
-    
-    <a class="btn-red" href="">see here</a>
-  </div> -->
 
 </div>

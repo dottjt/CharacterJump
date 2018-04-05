@@ -24,8 +24,10 @@ class Timeline extends Component {
     return (
       <main>
 
-        <AppTitle title="Timeline"/>
-        <AppTop   title="New Day" tooltip="Record today's activity." link="/dashboard/record"/>
+        <div className="App__title__container">
+          <AppTitle title="Timeline"/>
+          <AppTop   title="New Day" tooltip="Record today's activity." link="/dashboard/record"/>
+        </div>
 
         <TimelineChart timeline={store.timeline} characters={store.characters}/>        
 

@@ -8,6 +8,7 @@ import { history } from './redux/store';
 // Components
 import Header from './Header/Header.jsx';
 import Navbar from './Navbar/Navbar.jsx';
+import MobileNavbar from './MobileNavbar/MobileNavbar.jsx';
 import Dashboard from './Dashboard/Dashboard.jsx';
 
 import CharacterList from './Character/CharacterList.jsx';
@@ -92,8 +93,11 @@ class App extends Component {
       <ConnectedRouter history={history}>
         <ScrollToTop>
           <div className="App">
-            <Header {...this.props}/>
+            {/* <Header {...this.props}/> */}
+
             <Navbar {...this.props}/>
+            <MobileNavbar {...this.props}/>
+            
             <Switch>
               <Route exact path="/dashboard" render={props => <Dashboard {...props} {...this.props}/>}/> 
 

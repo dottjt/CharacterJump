@@ -7,6 +7,7 @@ import AppTitle from '../Utility/AppTitle.jsx';
 import AppTitleSecondary from '../Utility/AppTitleSecondary.jsx';
 import AppText from '../Utility/AppText.jsx';
 
+
 // CSS
 import './Journal.css';
 
@@ -18,9 +19,11 @@ class JournalList extends Component {
     
     return (
       <main>
- 
-        <AppTitle title="Journals"/>
-        <AppTop title="New Journal" tooltip="Write about something." link="/dashboard/journals/new"/>
+
+        <div className="App__title__container">
+          <AppTitle title="Journals"/>
+          <AppTop title="New Journal" tooltip="Write about something." link="/dashboard/journals/new"/>
+        </div>
         
         <List journals={store.journals}/>
 
@@ -32,7 +35,7 @@ class JournalList extends Component {
 let List = ({journals}) => (
   <div className="App__items">
     {
-      journals
+      journals.length > 0
     ?
       journals.map(journal => (
         <Journal key={journal.id} journal={journal}/>
